@@ -1,4 +1,6 @@
 class Transformacja():
-        def transform():
+        def transform(self, x, y):
+            g = x + y
+            return(g)
             pass
 #ss
