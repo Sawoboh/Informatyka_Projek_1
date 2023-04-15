@@ -6,6 +6,7 @@ Created on Thu Apr 13 21:05:43 2023
 """
 import numpy as np
 from math import *
+import argparse
 
 
 def Np(f,a,e2):
@@ -90,7 +91,22 @@ def GK2PL00(xgk,ygk,l0):
     return(x_00, y_00)
 
 
+def PoleProstokata(BokProstokata, PodstawaProstokata):
+    Pole = BokProstokata * PodstawaProstokata
+    return(Pole)
+
+
+parser = argparse.ArgumentParser(description="Policz pole prostokąta")
+parser.add_argument("-h" "--BokProstokata", type=int, help="Podaj bok Prostokata")
+parser.add_argument("-r" "--PodstawaProstokata", type=int, help="Podaj podstawe Prostokata")
+args = parser.parse_args()
+
+#args: NameSpace = parser.parse_args()
+
 if __name__ == "__main__":
+    print(PoleProstokata(args.BokProstokata, args.PodstawaProstokata))
+
+    
     a_GRS80 = 6378137.000
     e2_GRS80 = 0.00669438002290
 
