@@ -4,3 +4,5 @@ class Transformacja():
             return(g)
             pass
 #ss
+
+#ttt
