@@ -55,7 +55,13 @@ class Transformacje:
         d = int(x)
         m = int(60 * (x - d))
         s = (x - d - m/60)*3600
-        x1=(f'{d}°{m}′{round(s,5)}″')  
+        if m<10:
+            m=str(m)
+            m="0"+m
+        if s<10:
+            s=str(s)
+            s="0"+s
+        x1=(f'{d}°{m}′{s:^.5f}″')  
         return(x1)
         
         
@@ -358,17 +364,17 @@ class Transformacje:
 
         Parametry
         ----------
-        X, Y, Z : FLOAT
+        X, Y, Z : LIST
              [metry] - współrzędne w układzie orto-kartezjańskim, 
-         f : FLOAT
+         f : LIST
              [dms] - szerokość geodezyjna..
-         l : FLOAT
+         l : LIST
              [dms] - długośc geodezyjna.
-         h : FLOAT
+         h : LIST
              [metry] - wysokość elipsoidalna
-        X1992, Y1992 : FLOAT
+        X1992, Y1992 : LIST
              [metry] - współrzędne w układzie 1992
-         X2000, Y2000 : FLOAT
+         X2000, Y2000 : LIST
              [metry] - współrzędne w układzie 2000
         neu : ARRAY
             współrzędne horyzontalne
@@ -378,16 +384,18 @@ class Transformacje:
         PLIK TXT
 
         '''
-        with open("Wyniki transformacji", "w") as plik:
-            plik.write(f"Wyniki_obliczen_Geodezyjnych\n")
-            plik.write("-"*50)
+        with open("Wyniki transformacji.txt", "w",  encoding="utf-8") as plik:
+            plik.write(f"Wyniki_obliczen_Geodezyjnych:\n")
+            plik.write("-"*180)
             plik.write(f"\n")
-            plik.write(f"|   X    |    Y    |     Z     |     f     |     l     |     h     |   x1992   |   y1992   |   x2000   |   y2000   |    neu    |")
+            plik.write(f"|       X        |        Y        |         Z         |           f           |           l           |       h       |     x1992    |     y1992    |     x2000     |     y2000     |    neu    |")
             plik.write(f"\n")
-            plik.write("-"*50)
+            plik.write("-"*180)
             plik.write(f"\n")
-            plik.write(f"|   {X}    |    {Y}    |     {Z}     |     {f}     |     {l}     |     {h}     |   {x92}   |   {y92}   |   {x00}   |   {y00}   |    {neu}    |")
-
+            for x, y, z, f, l, h,x92, y92, x00, y00, neu in zip(X, Y, Z, f, l, h, x92, y92, x00, y00, neu):
+                plik.write(f"|  {x:^.3f}   |   {y:^.3f}   |    {z:^.3f}    |    {f}    |    {l}    |    {h:^.3f}    |  {x92:^.3f}  |  {y92:^.3f}  |  {x00:^.3f}  |  {y00:^.3f}  |   {neu}   | \n")
+            plik.write("-"*180)
+    
     
     def wczytanie_pliku(Dane):
         '''
@@ -419,17 +427,10 @@ class Transformacje:
         return(X, Y, Z)
  
     
-    
-    
-    
-    
-
-    
 if __name__ == "__main__":
  
-    
-    X, Y, Z = Transformacje.wczytanie_pliku("wsp_inp.txt")
     geo = Transformacje(model = "GRS80")
+    X, Y, Z = Transformacje.wczytanie_pliku("wsp_inp.txt")
     F=[]
     L=[]
     H=[]
@@ -438,10 +439,14 @@ if __name__ == "__main__":
     X00=[]
     Y00=[]
     NEU=[]
+    #Chwilowe
+    for i in X:
+        a=3
+        NEU.append(a)
     for x, y, z in zip(X, Y, Z):
         f,l,h = geo.hirvonen(x, y, z, output="dms")
         F.append(f)
-        L.append(L)
+        L.append(l)
         H.append(h)
         f,l,h = geo.hirvonen(x, y, z)
         x92, y92 = geo.flh2PL92(f,l)
@@ -450,32 +455,10 @@ if __name__ == "__main__":
         x00, y00 = geo.flh2PL00(f,l)
         X00.append(x00)
         Y00.append(y00)
-
-        '''
+    Transformacje.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, NEU)
+    #zrobić neu
+    '''
         if 
         neu=geo.xyz2neu(f,l, Xa, Ya, Za, Xb, Yb, Zb)
         '''
-''' 
-    f,l,h = geo.hirvonen(3664940.500,1409153.590,5009571.170)
-    print("Dane w hirvonenie:", f, l, h)
-    
-
-    x,y,z = geo.flh2XYZ(f,l,h)
-    print("Dane w flh2XYZ:", x,y,z)
-    
-    
-    fsto = 53+11/60+59.79018/3600; lsto = 16+41/60+50.52003/3600
-    x92, y92 = geo.flh2PL92(fsto,lsto)
-    print("Dane w PL92:", x92, y92)
-    
-    
-    fsto = 53+11/60+59.79018/3600; lsto = 16+41/60+50.52003/3600
-    x00, y00 = geo.flh2PL00(fsto,lsto)
-    print("Dane w PL00:", x00, y00)
-    
-    
-    fa = np.radians(10); la = np.radians(12); Xa = 100; Ya = 200; Za = 500; Xb = 300; Yb = 400; Zb = 500
-    neu = Transformacje.xyz2neu(fa,la, Xa, Ya, Za, Xb, Yb, Zb)
-    print("Dane w neu:", neu)
-    #𝐴=[595218.264; 346242.070] wynik w 1992
-    #𝐴=[5897209.810; 6412958.174] wynik w 2000'''
+    Transformacje.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, NEU)
