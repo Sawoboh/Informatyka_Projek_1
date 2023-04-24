@@ -59,9 +59,12 @@ class Transformacje:
             m=str(m)
             m="0"+m
         if s<10:
+            s=("%.5f"%s)
             s=str(s)
             s="0"+s
-        x1=(f'{d}°{m}′{s:^.5f}″')  
+        else:
+            s = ("%.5f"%s)
+        x1=(f'{d}°{m}′{s}″')  
         return(x1)
         
         
@@ -186,11 +189,11 @@ class Transformacje:
 
         '''
         
-        if l > 25.5 and l < 13.5:
-            raise NotImplementedError(f"{l} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
+        if l > 25.5 or l < 13.5:
+            raise NotImplementedError(f"{Transformacje.dms(radians(l))} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL1992")
             
-        if f > 55 and f < 48.9:
-            raise NotImplementedError(f"{f} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
+        if f > 55 or f < 48.9:
+            raise NotImplementedError(f"{Transformacje.dms(radians(f))} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL1992")
             
         f = np.radians(f)
         l = np.radians(l)
@@ -250,10 +253,10 @@ class Transformacje:
         elif l >= 22.5 and l <= 25.5:
             l0 = np.radians(24)
         else:
-            raise NotImplementedError(f"{l} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
+            raise NotImplementedError(f"{Transformacje.dms(radians(l))} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
         
-        if f > 55 and f < 48.9:
-            raise NotImplementedError(f"{f} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
+        if f > 55 or f < 48.9:
+            raise NotImplementedError(f"{Transformacje.dms(radians(f))} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
             
         f = np.radians(f)
         l = np.radians(l)
@@ -429,6 +432,7 @@ class Transformacje:
     
 if __name__ == "__main__":
  
+    
     geo = Transformacje(model = "GRS80")
     X, Y, Z = Transformacje.wczytanie_pliku("wsp_inp.txt")
     F=[]
@@ -462,3 +466,6 @@ if __name__ == "__main__":
         neu=geo.xyz2neu(f,l, Xa, Ya, Za, Xb, Yb, Zb)
         '''
     Transformacje.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, NEU)
+    
+    f,l,h = geo.hirvonen(2, 2, 2, output="dms")
+    print(f)
