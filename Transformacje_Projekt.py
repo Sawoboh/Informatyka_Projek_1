@@ -34,7 +34,7 @@ class Transformacje:
         else:
             raise NotImplementedError(f"{model}  jest nieobsługiwalną elipsoidą - przykładowe elipsoidy WGS84, GRS80, Krasowski.")
 
-    def dms(x):
+    def dms(self, x):
         '''
         Funkcja dms służy do zamienienia wizualnego FLOAT (radiany) na stopnie minuty i sekundy.   
 
@@ -128,11 +128,11 @@ class Transformacje:
         if output == "dec_degree":
             fi=(f*180/np.pi)
             lam=(l*180/np.pi)
-            return (fi, lam, h )
+            return (fi, lam, h)
         elif output == "dms":
-            fi = Transformacje.dms(f)
-            lam = Transformacje.dms(l)
-            return fi,lam,h 
+            fi = Transformacje.dms(self, f)
+            lam = Transformacje.dms(self, l)
+            return (fi,lam,h) 
         elif output == 'radiany':
             fi=f
             lam=l
@@ -190,10 +190,10 @@ class Transformacje:
         '''
         
         if l > 25.5 or l < 13.5:
-            raise NotImplementedError(f"{Transformacje.dms(radians(l))} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL1992")
+            raise NotImplementedError(f"{Transformacje.dms(self, radians(l))} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL1992")
             
         if f > 55 or f < 48.9:
-            raise NotImplementedError(f"{Transformacje.dms(radians(f))} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL1992")
+            raise NotImplementedError(f"{Transformacje.dms(self, radians(f))} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL1992")
             
         f = np.radians(f)
         l = np.radians(l)
@@ -253,10 +253,10 @@ class Transformacje:
         elif l >= 22.5 and l <= 25.5:
             l0 = np.radians(24)
         else:
-            raise NotImplementedError(f"{Transformacje.dms(radians(l))} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
+            raise NotImplementedError(f"{Transformacje.dms(self, radians(l))} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
         
         if f > 55 or f < 48.9:
-            raise NotImplementedError(f"{Transformacje.dms(radians(f))} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
+            raise NotImplementedError(f"{Transformacje.dms(self, radians(f))} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
             
         f = np.radians(f)
         l = np.radians(l)
