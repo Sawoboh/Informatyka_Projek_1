@@ -20,7 +20,6 @@ class Transformacje:
             e2 - mimośród^2 - ((promień równikowy^2+promień południkowy ^2)/promień równikowy^2)
         + WGS84: https://en.wikipedia.org/wiki/World_Geodetic_System#WGS84
         + Inne powierzchnie odniesienia: https://en.wikibooks.org/wiki/PROJ.4#Spheroid
-        + Parametry planet: https://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html
         """
         
         if model == "WGS84":
@@ -61,6 +60,22 @@ class Transformacje:
         
         
     def get_np(self, f):
+        '''
+        funkcja liczy promień przekroju w pierwszym wertykale, który potrzebny jest nam do algorymu hirvonena,
+        funkcji: flh2XYZ, flh2PL92, flh2PL00
+        
+        
+        Parameters
+        ----------
+        f : FLOAT
+            [radiany] - szerokość geodezyjna
+
+        Returns
+        -------
+        N : float
+            [metry] - promień przekroju w pierwszym wertykale
+
+        '''
         N = self.a / np.sqrt(1 - self.e2 * np.sin(f)**2)
         return(N)
     
@@ -90,6 +105,7 @@ class Transformacje:
              radiany - radiany 
          """
         '''
+
         p = np.sqrt(X**2 + Y**2)
         f = np.arctan(Z/(p * (1 - self.e2)))
         while True:
@@ -288,9 +304,9 @@ class Transformacje:
         Parametry
         ----------
         f : FLOAT
-            [radiany] - szerokość geodezyjna..
+            [stopnie dziesiętne] - szerokość geodezyjna..
         l : FLOAT
-            [radiany] - długośc geodezyjna.
+            [stopnie dziesiętne] - długośc geodezyjna.
 
         Returns
         -------
@@ -316,9 +332,9 @@ class Transformacje:
         Parametry
         ----------
         f : FLOAT
-            [radiany] - szerokość geodezyjna..
+            [stopnie dziesiętne] - szerokość geodezyjna..
         l : FLOAT
-            [radiany] - długośc geodezyjna.
+            [stopnie dziesiętne] - długośc geodezyjna.
         XA, YA, ZA, XB, YB, ZB: FLOAT
              współrzędne w układzie orto-kartezjańskim, 
 
@@ -388,9 +404,6 @@ class Transformacje:
             [LIST] - listy danych X Y i Z
         '''
         
-        
-        
-        
         with open(Dane, "r") as plik:
             tab=np.genfromtxt(plik, delimiter=",", dtype = '<U10', skip_header = 4)
             X=[]
@@ -398,11 +411,11 @@ class Transformacje:
             Z=[]
             for i in tab:
                 x=i[0]
-                X.append(x)
-                y=i[0]
-                Y.append(y)
+                X.append(float(x))
+                y=i[1]
+                Y.append(float(y))
                 z=i[2]
-                Z.append(z)
+                Z.append(float(z))
         return(X, Y, Z)
  
     
@@ -417,11 +430,33 @@ if __name__ == "__main__":
     
     X, Y, Z = Transformacje.wczytanie_pliku("wsp_inp.txt")
     geo = Transformacje(model = "GRS80")
+    F=[]
+    L=[]
+    H=[]
+    X92=[]
+    Y92=[]
+    X00=[]
+    Y00=[]
+    NEU=[]
     for x, y, z in zip(X, Y, Z):
-        pass
-    
-    
-    f,l,h = geo.hirvonen(3853080,1425040,4863020)
+        f,l,h = geo.hirvonen(x, y, z, output="dms")
+        F.append(f)
+        L.append(L)
+        H.append(h)
+        f,l,h = geo.hirvonen(x, y, z)
+        x92, y92 = geo.flh2PL92(f,l)
+        X92.append(x92)
+        Y92.append(y92)
+        x00, y00 = geo.flh2PL00(f,l)
+        X00.append(x00)
+        Y00.append(y00)
+
+        '''
+        if 
+        neu=geo.xyz2neu(f,l, Xa, Ya, Za, Xb, Yb, Zb)
+        '''
+''' 
+    f,l,h = geo.hirvonen(3664940.500,1409153.590,5009571.170)
     print("Dane w hirvonenie:", f, l, h)
     
 
