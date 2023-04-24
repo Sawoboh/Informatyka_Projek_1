@@ -7,6 +7,7 @@ Created on Sun Apr 23 11:56:02 2023
 
 import numpy as np
 import argparse
+from math import radians
 
 
 class Transformacje:
@@ -38,7 +39,7 @@ class Transformacje:
         '''
         Funkcja dms służy do zamienienia wizualnego FLOAT (radiany) na stopnie minuty i sekundy.   
 
-        Parameters
+        Parametry
         ----------
         x : FLOAT
             [radiany].
@@ -64,7 +65,7 @@ class Transformacje:
         return(N)
     
     
-    def hirvonen(self, X, Y, Z, output="dms"):
+    def hirvonen(self, X, Y, Z, output="dec_degree"):
         '''
         Algorytm Hirvonena – algorytm służący do transformacji współrzędnych ortokartezjańskich 
         (prostokątnych) x, y, z na współrzędne geodezyjne fi, Lambda, h. Jest to proces iteracyjny. 
@@ -77,11 +78,11 @@ class Transformacje:
 
          Returns
          -------
-         fi
+         fi : FLOAT
              [stopnie dziesiętne] - szerokość geodezyjna.
-         lam
+         lam : FLOAT
              [stopnie dziesiętne] - długośc geodezyjna.
-         h : TYPE
+         h : FLOAT
              [metry] - wysokość elipsoidalna
          output [STR] - opcjonalne, domylne 
              dec_degree - stopnie dziesiętne
@@ -121,21 +122,22 @@ class Transformacje:
         Algorytm odwrotny do algorytmu Hirvonena - służy do transformacji współrzędnych geodezyjnych B, L, H 
         na współRzędne ortokartezjańskie x, y, z.
 
-        Parameters
+        Parametry
         ----------
         f : FLOAT
-            [RADIANY] - szerokość geodezyjna..
+            [stopnie dziesiętne] - szerokość geodezyjna.
         l : FLOAT
-            [RADIANY] - długośc geodezyjna.
+            [stopnie dziesiętne] - długośc geodezyjna.
         h : FLOAT
             [metry] - wysokość elipsoidalna
-
         Returns
         -------
          X, Y, Z : FLOAT
-              współrzędne w układzie orto-kartezjańskim
+              [metry] - współrzędne w układzie orto-kartezjańskim
 
         '''
+        f=radians(f)
+        l=radians(l)
         N = Transformacje.get_np(self, f)
         X = (N + h) * np.cos(f) * np.cos(l)
         Y = (N + h) * np.cos(f) * np.sin(l)
@@ -143,24 +145,22 @@ class Transformacje:
         return(X,Y,Z)
     
     
-    def flh2PL92(self, f, l, h):
+    def flh2PL92(self, f, l):
         '''
         Układ współrzędnych 1992 (Państwowy Układ Współrzędnych Geodezyjnych 1992) – układ współrzędnych 
         płaskich prostokątnych oparty na odwzorowaniu Gaussa-Krügera dla elipsoidy GRS80 w jednej dziesięciostopniowej strefie.
 
-        Parameters
+        Parametry
         ----------
         f : FLOAT
             [stopnie dziesiętne] - szerokość geodezyjna..
         l : FLOAT
             [stopnie dziesiętne] - długośc geodezyjna.
-        h : FLOAT
-            [metry] - wysokość elipsoidalna
 
         Returns
         -------
          X1992, Y1992 : FLOAT
-              współrzędne w układzie 1992
+              [metry] - współrzędne w układzie 1992
 
         '''
         
@@ -199,25 +199,23 @@ class Transformacje:
         return(x92,y92)
     
     
-    def flh2PL00(self, f, l, h):
+    def flh2PL00(self, f, l):
         '''
         Układ współrzędnych 2000 – układ współrzędnych płaskich prostokątnych zwany układem „2000”, 
         powstały w wyniku zastosowania odwzorowania Gaussa-Krügera dla elipsoidy GRS 80 w czterech 
         trzystopniowych strefach o południkach osiowych 15°E, 18°E, 21°E i 24°E, oznaczone odpowiednio numerami – 5, 6, 7 i 8.
 
-        Parameters
+        Parametry
         ----------
         f : FLOAT
             [stopnie dziesiętne] - szerokość geodezyjna..
         l : FLOAT
             [stopnie dziesiętne] - długośc geodezyjna.
-        h : FLOAT
-            [metry] - wysokość elipsoidalna
 
         Returns
         -------
          X2000, Y2000 : FLOAT
-              współrzędne w układzie 2000
+              [metry] - współrzędne w układzie 2000
 
         '''
           
@@ -266,9 +264,9 @@ class Transformacje:
     
     def get_dXYZ(xa, ya, za, xb, yb, zb):
         '''
-        funkcja liczy macierz rówżnicy współrzednych punktów A i B
+        funkcja liczy macierz rówżnicy współrzednych punktów A i B, która jest potrzebna do obliczenia macierzy neu
 
-        Parameters
+        Parametry
         ----------
         XA, YA, ZA, XB, YB, ZB: FLOAT
              współrzędne w układzie orto-kartezjańskim, 
@@ -285,9 +283,9 @@ class Transformacje:
     
     def rneu(f, l):
         '''
-        
+        Funkcja tworzy macierz obrotu R, która jest potrzebna do obliczenia macierzy neu
 
-        Parameters
+        Parametry
         ----------
         f : FLOAT
             [radiany] - szerokość geodezyjna..
@@ -297,9 +295,11 @@ class Transformacje:
         Returns
         -------
         R ARRAY
-            macierz obrotu
+            macierz obrotu R
              
         '''
+        f=radians(f)
+        l=radians(l)
         R = np.array([[-np.sin(f)*np.cos(l), -np.sin(l), np.cos(f)*np.cos(l)],
                       [-np.sin(f)*np.sin(l),  np.cos(l), np.cos(f)*np.sin(l)],
                       [np.cos(f),             0,         np.sin(f)          ]])
@@ -313,7 +313,7 @@ class Transformacje:
         Biegunami układu są zenit i nadir. Ich położenie na sferze niebieskiej zależy od współrzędnych geograficznych 
         obserwatora oraz momentu obserwacji, tak więc współrzędne horyzontalne opisują jedynie chwilowe położenie ciała niebieskiego.
 
-        Parameters
+        Parametry
         ----------
         f : FLOAT
             [radiany] - szerokość geodezyjna..
@@ -337,28 +337,29 @@ class Transformacje:
     
     def zapisaniePliku(X, Y, Z, f, l, h, x92, y92, x00, y00, neu): 
         '''
-        
+        funkcja zapisuje wyniki obliczeń (x, y, z, f, l, h, x92, y92, x1992, y1992, x2000, y2000 ,neu).
+        Tworzy z nich tabele.
 
-        Parameters
+        Parametry
         ----------
         X, Y, Z : FLOAT
-             współrzędne w układzie orto-kartezjańskim, 
+             [metry] - współrzędne w układzie orto-kartezjańskim, 
          f : FLOAT
              [dms] - szerokość geodezyjna..
          l : FLOAT
              [dms] - długośc geodezyjna.
          h : FLOAT
              [metry] - wysokość elipsoidalna
-            X1992, Y1992 : FLOAT
-                 współrzędne w układzie 1992
+        X1992, Y1992 : FLOAT
+             [metry] - współrzędne w układzie 1992
          X2000, Y2000 : FLOAT
-              współrzędne w układzie 2000
-        neu : TYPE
-            DESCRIPTION.
+             [metry] - współrzędne w układzie 2000
+        neu : ARRAY
+            współrzędne horyzontalne
 
         Returns
         -------
-        None.
+        PLIK TXT
 
         '''
         with open("Wyniki transformacji", "w") as plik:
@@ -371,28 +372,70 @@ class Transformacje:
             plik.write(f"\n")
             plik.write(f"|   {X}    |    {Y}    |     {Z}     |     {f}     |     {l}     |     {h}     |   {x92}   |   {y92}   |   {x00}   |   {y00}   |    {neu}    |")
 
+    
+    def wczytanie_pliku(Dane):
+        '''
+        funkcja wczytuje plik z Danymi X, Y, Z i tworzy z nich liste posegregowanych X,Y i Z.
 
+        
+        Parametry
+        ----------
+        Dane [STR]
+            [STR] - nazwa pliku wczytywanego wraz z rozszerzeniem txt
+        Returns
+        -------
+        X, Y, Z [LIST]
+            [LIST] - listy danych X Y i Z
+        '''
+        
+        
+        
+        
+        with open(Dane, "r") as plik:
+            tab=np.genfromtxt(plik, delimiter=",", dtype = '<U10', skip_header = 4)
+            X=[]
+            Y=[]
+            Z=[]
+            for i in tab:
+                x=i[0]
+                X.append(x)
+                y=i[0]
+                Y.append(y)
+                z=i[2]
+                Z.append(z)
+        return(X, Y, Z)
+ 
+    
+    
+    
+    
+    
+
+    
 if __name__ == "__main__":
-
-       
+ 
+    
+    X, Y, Z = Transformacje.wczytanie_pliku("wsp_inp.txt")
     geo = Transformacje(model = "GRS80")
+    for x, y, z in zip(X, Y, Z):
+        pass
     
     
-    f,l,h = geo.hirvonen(3853080,1425040,4863020,output="dms")
+    f,l,h = geo.hirvonen(3853080,1425040,4863020)
     print("Dane w hirvonenie:", f, l, h)
     
 
-    x,y,z = geo.flh2XYZ(1,1,1)
+    x,y,z = geo.flh2XYZ(f,l,h)
     print("Dane w flh2XYZ:", x,y,z)
     
     
     fsto = 53+11/60+59.79018/3600; lsto = 16+41/60+50.52003/3600
-    x92, y92 = geo.flh2PL92(fsto,lsto,1)
+    x92, y92 = geo.flh2PL92(fsto,lsto)
     print("Dane w PL92:", x92, y92)
     
     
     fsto = 53+11/60+59.79018/3600; lsto = 16+41/60+50.52003/3600
-    x00, y00 = geo.flh2PL00(fsto,lsto,1)
+    x00, y00 = geo.flh2PL00(fsto,lsto)
     print("Dane w PL00:", x00, y00)
     
     
