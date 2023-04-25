@@ -40,28 +40,59 @@ class Test_Transoframcje:
 
 
     def test_dms_d_m_s(self):
-        test_dms_d_m_s = Transformacje()
-        assert test_dms_d_m_s.dms(1) == "57°17′44.80625″"
+        test_dms_d_m_s_GRS80 = Transformacje("GRS80")
+        assert test_dms_d_m_s_GRS80.dms(1) == " 57°17′44.80625″"
         
+        test_dms_0d_0m_0s_GRS80 = Transformacje("GRS80")
+        assert test_dms_0d_0m_0s_GRS80.dms(0) == "  0°00′00.00000″"
         
-    def test_dms_0d_0m_0s(self):
-        test_dms_0d_0m_0s = Transformacje()
-        assert test_dms_0d_0m_0s.dms(0) == "0°00′00.00000″"
+        test_dms_d_0m_s_GRS80 = Transformacje("GRS80")
+        assert test_dms_d_0m_s_GRS80.dms(0.001) == "  0°03′26.26481″"
         
+        test_dms_d_m_0s_GRS80 = Transformacje("GRS80")
+        assert test_dms_d_m_0s_GRS80.dms(0.0111) == "  0°38′09.53935″"
         
-    def test_dms_d_0m_s(self):
-        test_dms_d_0m_s = Transformacje()
-        assert test_dms_d_0m_s.dms(0.001) == "0°03′26.26481″"
+        test_dms_d_m_0s_GRS80 = Transformacje("GRS80")
+        assert test_dms_d_m_0s_GRS80.dms(0.2) == " 11°27′32.96125″"
+    
+        test_dms_d_0m_0s_GRS80 = Transformacje("GRS80")
+        assert test_dms_d_0m_0s_GRS80.dms(np.pi) == "180°00′00.00000″"
         
+        test_dms_d_m_s_WGS84 = Transformacje("WGS84")
+        assert test_dms_d_m_s_WGS84.dms(1) == " 57°17′44.80625″"
         
-    def test_dms_d_m_0s(self):
-        test_dms_d_m_0s = Transformacje()
-        assert test_dms_d_m_0s.dms(0.0111) == "0°38′09.53935″"
+        test_dms_0d_0m_0s_WGS84 = Transformacje("WGS84")
+        assert test_dms_0d_0m_0s_WGS84.dms(0) == "  0°00′00.00000″"
         
+        test_dms_d_0m_s_WGS84 = Transformacje("WGS84")
+        assert test_dms_d_0m_s_WGS84.dms(0.001) == "  0°03′26.26481″"
         
-    def test_dms_d_0m_0s(self):
-        test_dms_d_0m_0s = Transformacje()
-        assert test_dms_d_0m_0s.dms(np.pi) == "180°00′00.00000″"
+        test_dms_d_m_0s_WGS84 = Transformacje("WGS84")
+        assert test_dms_d_m_0s_WGS84.dms(0.0111) == "  0°38′09.53935″"
+        
+        test_dms_d_m_0s_WGS84 = Transformacje("WGS84")
+        assert test_dms_d_m_0s_WGS84.dms(0.2) == " 11°27′32.96125″"
+    
+        test_dms_d_0m_0s_WGS84 = Transformacje("WGS84")
+        assert test_dms_d_0m_0s_WGS84.dms(np.pi) == "180°00′00.00000″"
+        
+        test_dms_d_m_s_Krasowski = Transformacje("Krasowski")
+        assert test_dms_d_m_s_Krasowski.dms(1) == " 57°17′44.80625″"
+        
+        test_dms_0d_0m_0s_Krasowski = Transformacje("Krasowski")
+        assert test_dms_0d_0m_0s_Krasowski.dms(0) == "  0°00′00.00000″"
+        
+        test_dms_d_0m_s_Krasowski = Transformacje("Krasowski")
+        assert test_dms_d_0m_s_Krasowski.dms(0.001) == "  0°03′26.26481″"
+        
+        test_dms_d_m_0s_Krasowski = Transformacje("Krasowski")
+        assert test_dms_d_m_0s_Krasowski.dms(0.0111) == "  0°38′09.53935″"
+        
+        test_dms_d_m_0s_Krasowski = Transformacje("Krasowski")
+        assert test_dms_d_m_0s_Krasowski.dms(0.2) == " 11°27′32.96125″"
+    
+        test_dms_d_0m_0s_Krasowski = Transformacje("Krasowski")
+        assert test_dms_d_0m_0s_Krasowski.dms(np.pi) == "180°00′00.00000″"
 
         
     def test_get_np_GRS80_WGS84_Krasowski(self):
@@ -121,20 +152,20 @@ class Test_Transoframcje:
     def test_hirvonen_dms_GRS80_WGS84_Krasowski(self):
         test_hirvonen_dms_GRS80 = Transformacje("GRS80")
         f, l, h = test_hirvonen_dms_GRS80.hirvonen(3664940.500, 1409153.590, 5009571.170, output="dms")
-        assert f == "52°05′50.17999″"
-        assert l == "21°01′53.52000″"
+        assert f == " 52°05′50.17999″"
+        assert l == " 21°01′53.52000″"
         assert np.allclose(h, 141.3986624, rtol=1e-04, atol=1e-06)
         
         test_hirvonen_dms_WGS84 = Transformacje("WGS84")
         f, l, h = test_hirvonen_dms_WGS84.hirvonen(3664940.500, 1409153.590, 5009571.170, output="dms")
-        assert f == "52°05′50.17999″"
-        assert l == "21°01′53.52000″"
+        assert f == " 52°05′50.17999″"
+        assert l == " 21°01′53.52000″"
         assert np.allclose(h, 141.3985972, rtol=1e-04, atol=1e-06)
         
         test_hirvonen_dms_Krasowski = Transformacje("Krasowski")
         f, l, h = test_hirvonen_dms_Krasowski.hirvonen(3664940.500, 1409153.590, 5009571.170, output="dms")
-        assert f == "52°05′50.09508″"
-        assert l == "21°01′53.52000″"
+        assert f == " 52°05′50.09508″"
+        assert l == " 21°01′53.52000″"
         assert np.allclose(h, 31.7170106, rtol=1e-04, atol=1e-06)
     
     
@@ -285,7 +316,7 @@ class Test_Transoframcje:
             X, Y = test_flh2PL00_invalid_l_f_Krasowski.flh2PL00(12.5, 12.5)
         assert "12°30′00.00000″ ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL2000" in str(excinfo.value)
         
-        
+    
     def test_rneu_GRS80_WGS84_Krasowski(self):
         test_rneu_GRS80 = Transformacje("GRS80")
         R = test_rneu_GRS80.rneu(10,10)
@@ -326,4 +357,59 @@ class Test_Transoframcje:
     
     def test_get_dXYZ_GRS80_WGS84_Krasowski(self):
         test_get_dXYZ_GRS80 = Transformacje("GRS80")
-        dXYZ = test_get_dXYZ_GRS80.get_dXYZ
+        dXYZ = test_get_dXYZ_GRS80.get_dXYZ(234, 645, 13, 412, 642, 12)
+        assert dXYZ[0] == 178
+        assert dXYZ[1] == -3
+        assert dXYZ[2] == -1
+        
+        test_get_dXYZ_WGS84 = Transformacje("WGS84")
+        dXYZ = test_get_dXYZ_WGS84.get_dXYZ(234, 645, 13, 412, 642, 12)
+        assert dXYZ[0] == 178
+        assert dXYZ[1] == -3
+        assert dXYZ[2] == -1
+        
+        test_get_dXYZ_Krasowski = Transformacje("Krasowski")
+        dXYZ = test_get_dXYZ_Krasowski.get_dXYZ(234, 645, 13, 412, 642, 12)
+        assert dXYZ[0] == 178
+        assert dXYZ[1] == -3
+        assert dXYZ[2] == -1
+        
+    
+    def test_xyz2neu_GRS80_WGS84_Krasowski(self):
+        test_xyz2neu_GRS80 = Transformacje("GRS80")
+        n, e, u = test_xyz2neu_GRS80.xyz2neu(10, 10, 234, 645, 13, 412, 642, 12)
+        assert n == "                              -31.3341394401755799" 
+        assert e == "                              -33.8637988837502277"
+        assert u == "                              171.9459648572903916"
+        
+        test_xyz2neu_WGS84 = Transformacje("WGS84")
+        n, e, u = test_xyz2neu_WGS84.xyz2neu(10, 10, 234, 645, 13, 412, 642, 12)
+        assert n == "                              -31.3341394401755799" 
+        assert e == "                              -33.8637988837502277"
+        assert u == "                              171.9459648572903916"
+        
+        test_xyz2neu_Krasowski = Transformacje("Krasowski")
+        n, e, u = test_xyz2neu_Krasowski.xyz2neu(10, 10, 234, 645, 13, 412, 642, 12)
+        assert n == "                              -31.3341394401755799" 
+        assert e == "                              -33.8637988837502277"
+        assert u == "                              171.9459648572903916"
+        
+        
+    def test_zamiana_float2string_GRS80_WGS84_Krasowski(self):
+        test_zamiana_float2string_GRS80 = Transformacje("GRS80")
+        x = test_zamiana_float2string_GRS80.zamiana_float2string(23.2412122)
+        z = test_zamiana_float2string_GRS80.zamiana_float2string(0)
+        assert x == "               23.241"
+        assert z == "                0.000"
+        
+        test_zamiana_float2string_WGS84 = Transformacje("WGS84")
+        x = test_zamiana_float2string_WGS84.zamiana_float2string(23.2412122)
+        z = test_zamiana_float2string_WGS84.zamiana_float2string(0)
+        assert x == "               23.241"
+        assert z == "                0.000"
+        
+        test_zamiana_float2string_Krasowski = Transformacje("Krasowski")
+        x = test_zamiana_float2string_Krasowski.zamiana_float2string(23.2412122)
+        z = test_zamiana_float2string_Krasowski.zamiana_float2string(0)
+        assert x == "               23.241"
+        assert z == "                0.000"
