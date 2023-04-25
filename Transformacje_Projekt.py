@@ -54,15 +54,26 @@ class Transformacje:
         d = int(x)
         m = int(60 * (x - d))
         s = (x - d - m/60)*3600
-        if m<10:
-            m=str(m)
-            m="0"+m
-        if s<10:
-            s=("%.5f"%s)
-            s=str(s)
-            s="0"+s
+        
+        d = str(d)
+        if len(d) == 1:
+            d = "  " + d
+        elif len(d) == 2:
+            d = " " + d
+        elif len(d) == 3:
+            d = d
+            
+        if m < 10:
+            m = str(m)
+            m = "0" + m
+            
+        if s < 10:
+            s = "%.5f"%s
+            s = str(s)
+            s= "0" + s
         else:
             s = ("%.5f"%s)
+            
         x1=(f'{d}°{m}′{s}″')  
         return(x1)
         
@@ -286,7 +297,7 @@ class Transformacje:
         return(x00,y00)
     
     
-    def get_dXYZ(xa, ya, za, xb, yb, zb):
+    def get_dXYZ(self, xa, ya, za, xb, yb, zb):
         '''
         funkcja liczy macierz rówżnicy współrzednych punktów A i B, która jest potrzebna do obliczenia macierzy neu
 
@@ -305,7 +316,7 @@ class Transformacje:
         return(dXYZ)
     
     
-    def rneu(f, l):
+    def rneu(self, f, l):
         '''
         Funkcja tworzy macierz obrotu R, która jest potrzebna do obliczenia macierzy neu
 
@@ -329,8 +340,8 @@ class Transformacje:
                       [np.cos(f),             0,         np.sin(f)          ]])
         return(R)
     
-    
-    def xyz2neu(f, l, xa, ya, za, xb, yb, zb):
+    """
+    def xyz2neu(self, f, l, xa, ya, za, xb, yb, zb):
         '''
         Układ współrzędnych horyzontalnych – układ współrzędnych astronomicznych, w którym oś główną stanowi 
         lokalny kierunek pionu, a płaszczyzną podstawową jest płaszczyzna horyzontu astronomicznego. 
@@ -353,8 +364,8 @@ class Transformacje:
             
 
         '''
-        dX = Transformacje.get_dXYZ(xa, ya, za, xb, yb, zb)
-        R = Transformacje.rneu(f,l)
+        dX = Transformacje.get_dXYZ(self, xa, ya, za, xb, yb, zb)
+        R = Transformacje.rneu(self, f,l)
         neu = R.T @ dX
         n=neu[0]
         if n > 0:
@@ -378,9 +389,59 @@ class Transformacje:
         else:
             u="%.4f"%u
         return(n, e, u)
+        """
     
     
-    def zapisaniePliku(X, Y, Z, f, l, h, x92, y92, x00, y00, N, E, U): 
+    def xyz2neu(self, f, l, xa, ya, za, xb, yb, zb):
+        '''
+        Układ współrzędnych horyzontalnych – układ współrzędnych astronomicznych, w którym oś główną stanowi 
+        lokalny kierunek pionu, a płaszczyzną podstawową jest płaszczyzna horyzontu astronomicznego. 
+        Biegunami układu są zenit i nadir. Ich położenie na sferze niebieskiej zależy od współrzędnych geograficznych 
+        obserwatora oraz momentu obserwacji, tak więc współrzędne horyzontalne opisują jedynie chwilowe położenie ciała niebieskiego.
+
+        Parametry
+        ----------
+        f : FLOAT
+            [stopnie dziesiętne] - szerokość geodezyjna..
+        l : FLOAT
+            [stopnie dziesiętne] - długośc geodezyjna.
+        XA, YA, ZA, XB, YB, ZB: FLOAT
+             współrzędne w układzie orto-kartezjańskim, 
+
+        Returns
+        -------
+        neu ARRAY
+            współrzędne horyzontalne
+            
+
+        '''
+        dX = Transformacje.get_dXYZ(self, xa, ya, za, xb, yb, zb)
+        R = Transformacje.rneu(self, f,l)
+        neu = R.T @ dX
+        n = neu[0];   e = neu[1];   u = neu[2]
+        n = "%.16f"%n; e = "%.16f"%e; u="%.16f"%u
+        dlugosc = []
+        xx = len(n); dlugosc.append(xx)
+        yy = len(e); dlugosc.append(yy)
+        zz = len(u); dlugosc.append(zz)
+        P = 50
+        
+        while xx < P:
+            n = str(" ") + n
+            xx += 1
+        
+        while yy < P:
+            e = str(" ") + e
+            yy += 1
+            
+        while zz < P:
+            u = str(" ") + u
+            zz +=1
+            
+        return(n, e, u)
+    
+
+    def zapisaniePliku(self, X, Y, Z, f, l, h, x92, y92, x00, y00, N, E, U): 
         '''
         funkcja zapisuje wyniki obliczeń (x, y, z, f, l, h, x92, y92, x1992, y1992, x2000, y2000 ,neu).
         Tworzy z nich tabele.
@@ -407,22 +468,42 @@ class Transformacje:
         PLIK TXT
 
         '''
-        with open("Wyniki transformacji.txt", "w",  encoding="utf-8") as plik:
-            plik.write(f"Wyniki_obliczen_Geodezyjnych:\n")
-            plik.write("-"*180)
+        for i in range(len(X)):
+            X[i] = Transformacje.zamiana_float2string(self, X[i])
+            Y[i] = Transformacje.zamiana_float2string(self, Y[i])
+            Z[i] = Transformacje.zamiana_float2string(self, Z[i])
+        
+        with open("Wyniki_transformacji_X_Y_Z_fi_lambda_h_x1992_y1992_x2000_y2000.txt", "w",  encoding="utf-8") as plik:
+            plik.write(f"Wyniki_obliczen_Geodezyjnych; X, Y, Z, fi, lambda, h, x1992, y1992, x2000, y2000.\n")
+            plik.write(f"Znak '-' w koordynatach; x1992, y1992, x2000, y2000 oznacza, że dla podanych współrzędnych ortokartezjańskich (X, Y, Z) po obliczeniu współrzędnych geodezyjnych fi i lambda. fi i lambda nie należą do dozwolonych współrzędnych \ngeodezyjnych układów PL1992, PL2000.\n")
+            plik.write("-"*221)
             plik.write(f"\n")
-            plik.write(f"|       X        |        Y        |         Z         |           f           |           l           |       h       |     x1992    |     y1992    |     x2000     |     y2000     |    n    |    e    |    u    |")
+            plik.write(f"|          X          |          Y          |          Z          |          fi         |        lambda       |          h          |        x1992        |        y1992        |        x2000        |        y2000        |")
             plik.write(f"\n")
-            plik.write("-"*180)
+            plik.write("-"*221)
             plik.write(f"\n")
-            for x, y, z, f, l, h,x92, y92, x00, y00, n, e, u in zip(X, Y, Z, f, l, h, x92, y92, x00, y00, N, E, U):
-                plik.write(f"|  {x:^11.3f}   |   {y:^11.3f}   |    {z:^11.3f}    |    {f}    |    {l}    |    {h:^7.3f}    |  {x92:^10.3f}  |  {y92:^10.3f}  |  {x00:^10.3f}  |  {y00:^10.3f}  |   {n}   |   {e}   |   {u}   | \n")
-            plik.write("-"*180)
+            for x, y, z, f, l, h, x92, y92, x00, y00 in zip(X, Y, Z, f, l, h, x92, y92, x00, y00):
+                plik.write(f"|{x}|{y}|{z}|     {f}|     {l}|{h}|{x92}|{y92}|{x00}|{y00}|")
+                plik.write(f"\n")
+            plik.write("-"*221)
+        
+        with open("Wyniki_transformacji_n_e_u.txt", "w", encoding="utf-8") as plik1:
+            plik1.write(f"Wyniki_obliczen_Geodezyjnych; n, e, u.\n")
+            plik1.write("-"*154)
+            plik1.write(f"\n")
+            plik1.write(f"|                        n                         |                        e                         |                        u                         |")
+            plik1.write(f"\n")
+            plik1.write("-"*154)
+            plik1.write(f"\n")
+            for n, e, u in zip(N, E, U):
+                plik1.write(f"|{n}|{e}|{u}|")
+                plik1.write(f"\n")
+            plik1.write("-"*154)
     
     
-    def wczytanie_pliku(Dane):
+    def wczytanie_pliku(self, Dane):
         '''
-        funkcja wczytuje plik z Danymi X, Y, Z i tworzy z nich liste posegregowanych X,Y i Z.
+        funkcja wczytuje plik z Danymi X, Y, Z i tworzy z nich liste posegregowanych X, Y i Z.
 
         
         Parametry
@@ -447,14 +528,115 @@ class Transformacje:
                 Y.append(float(y))
                 z=i[2]
                 Z.append(float(z))
-        return(X, Y, Z)
- 
+            ilosc_wierszy = len(X)
+        return(X, Y, Z, ilosc_wierszy)
+    
+    
+    def wczytanie_zapisanie_pliku(self, Dane):
+        X, Y, Z, C = Transformacje.wczytanie_pliku(self, Dane)
+        F=[]
+        L=[]
+        H=[]
+        X92=[]
+        Y92=[]
+        X00=[]
+        Y00=[]
+        N=[]
+        E=[]
+        U=[]
+        
+        for x, y, z in zip(X, Y, Z):
+            f,l,h = Transformacje.hirvonen(self, x, y, z, output="dms")
+            F.append(f)
+            L.append(l)
+            H.append(Transformacje.zamiana_float2string(self, h))
+            f,l,h = Transformacje.hirvonen(self, x, y, z)
+            
+            if l >= 13.5 and l <= 25.5 and f <= 55.0 and f >= 48.9:
+                x92, y92 = Transformacje.flh2PL92(self, f,l)
+                X92.append(Transformacje.zamiana_float2string(self, x92))
+                Y92.append(Transformacje.zamiana_float2string(self, y92))
+                x00, y00 = Transformacje.flh2PL00(self, f,l)
+                X00.append(Transformacje.zamiana_float2string(self, x00))
+                Y00.append(Transformacje.zamiana_float2string(self, y00))
+            else:
+                x92 = "         '-'         " ; X92.append(x92)
+                y92 = "         '-'         " ; Y92.append(y92)
+                x00 = "         '-'         " ; X00.append(x00)
+                y00 = "         '-'         " ; Y00.append(y00)
+        
+        f1, l1, h1 = Transformacje.hirvonen(self, X[0], Y[0], Z[0])
+        n1, e1, u1 = Transformacje.xyz2neu(self, f1, l1, X[0], Y[0], Z[0], X[-1], Y[-1], Z[-1])
+        N.append(n1)
+        E.append(e1)
+        U.append(u1)
+        
+        i=0
+        while i<(C-1):
+            f, l, h = Transformacje.hirvonen(self, X[i], Y[i], Z[i])
+            n, e, u = Transformacje.xyz2neu(self, f, l, X[i], Y[i], Z[i], X[i+1], Y[i+1], Z[i+1])
+            N.append(n)
+            E.append(e)
+            U.append(u)
+            i+=1
+        
+        Transformacje.zapisaniePliku(self, X, Y, Z, F, L, H, X92, Y92, X00, Y00, N, E, U)
+       
+        
+    def zamiana_float2string(self, liczba):
+        zm_liczba = "%.3f"%liczba
+        P = 21
+        xx = len(zm_liczba)
+        while xx < P:
+            zm_liczba = str(" ") + zm_liczba
+            xx += 1
+        return(zm_liczba)
+    
     
 if __name__ == "__main__":
- 
+
+    geo = Transformacje("GRS80")
+    geo.wczytanie_zapisanie_pliku("wsp_inp.txt")
+    #geo.wczytanie_zapisanie_pliku("wsp_inp_Losowe_dane.txt")
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    """
     geo = Transformacje(model = "GRS80")
-    X, Y, Z = Transformacje.wczytanie_pliku("wsp_inp.txt")
+    X, Y, Z, C = geo.wczytanie_pliku("wsp_inp_Losowe_dane.txt")
     F=[]
     L=[]
     H=[]
@@ -471,20 +653,28 @@ if __name__ == "__main__":
         L.append(l)
         H.append(h)
         f,l,h = geo.hirvonen(x, y, z)
-        x92, y92 = geo.flh2PL92(f,l)
-        X92.append(x92)
-        Y92.append(y92)
-        x00, y00 = geo.flh2PL00(f,l)
-        X00.append(x00)
-        Y00.append(y00)
+        
+        if l >= 13.5 and l <= 25.5 and f <= 55.0 and f >= 48.9:
+            x92, y92 = geo.flh2PL92(f,l)
+            X92.append(x92)
+            Y92.append(y92)
+            x00, y00 = geo.flh2PL00(f,l)
+            X00.append(x00)
+            Y00.append(y00)
+        else:
+            x92 = 1; X92.append(x92)
+            y92 = 1; Y92.append(y92)
+            x00 = 1; X00.append(x00)
+            y00 = 1; Y00.append(y00)
 
     i=0
-    while i<10:
+    while i<(C-1):
         f, l, h = geo.hirvonen(X[i], Y[i], Z[i])
-        n, e, u=Transformacje.xyz2neu(f, l, X[i], Y[i], Z[i], X[i+1], Y[i+1], Z[i+1])
+        n, e, u = geo.xyz2neu(f, l, X[i], Y[i], Z[i], X[i+1], Y[i+1], Z[i+1])
         N.append(n)
         E.append(e)
         U.append(u)
         i+=1
 
-    Transformacje.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, N, E, U)
+    geo.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, N, E, U)
+    """
