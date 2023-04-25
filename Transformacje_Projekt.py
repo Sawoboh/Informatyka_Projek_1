@@ -286,7 +286,7 @@ class Transformacje:
         return(x00,y00)
     
     
-    def get_dXYZ(self, xa, ya, za, xb, yb, zb):
+    def get_dXYZ(xa, ya, za, xb, yb, zb):
         '''
         funkcja liczy macierz rówżnicy współrzednych punktów A i B, która jest potrzebna do obliczenia macierzy neu
 
@@ -305,7 +305,7 @@ class Transformacje:
         return(dXYZ)
     
     
-    def rneu(self, f, l):
+    def rneu(f, l):
         '''
         Funkcja tworzy macierz obrotu R, która jest potrzebna do obliczenia macierzy neu
 
@@ -330,7 +330,7 @@ class Transformacje:
         return(R)
     
     
-    def xyz2neu(self, f, l, xa, ya, za, xb, yb, zb):
+    def xyz2neu(f, l, xa, ya, za, xb, yb, zb):
         '''
         Układ współrzędnych horyzontalnych – układ współrzędnych astronomicznych, w którym oś główną stanowi 
         lokalny kierunek pionu, a płaszczyzną podstawową jest płaszczyzna horyzontu astronomicznego. 
@@ -356,10 +356,31 @@ class Transformacje:
         dX = Transformacje.get_dXYZ(xa, ya, za, xb, yb, zb)
         R = Transformacje.rneu(f,l)
         neu = R.T @ dX
-        return(neu)
+        n=neu[0]
+        if n > 0:
+            n="%.4f"%n
+            n=str(n)
+            n=" "+n
+        else:
+            n="%.4f"%n
+        e=neu[1]
+        if e > 0:
+            e="%.4f"%e
+            e=str(e)
+            e=" "+e
+        else:
+            e="%.4f"%e
+        u=neu[2]
+        if u > 0:
+            u="%.4f"%u
+            u=str(u)
+            u=" "+u
+        else:
+            u="%.4f"%u
+        return(n, e, u)
     
     
-    def zapisaniePliku(X, Y, Z, f, l, h, x92, y92, x00, y00, neu): 
+    def zapisaniePliku(X, Y, Z, f, l, h, x92, y92, x00, y00, N, E, U): 
         '''
         funkcja zapisuje wyniki obliczeń (x, y, z, f, l, h, x92, y92, x1992, y1992, x2000, y2000 ,neu).
         Tworzy z nich tabele.
@@ -390,12 +411,12 @@ class Transformacje:
             plik.write(f"Wyniki_obliczen_Geodezyjnych:\n")
             plik.write("-"*180)
             plik.write(f"\n")
-            plik.write(f"|       X        |        Y        |         Z         |           f           |           l           |       h       |     x1992    |     y1992    |     x2000     |     y2000     |    neu    |")
+            plik.write(f"|       X        |        Y        |         Z         |           f           |           l           |       h       |     x1992    |     y1992    |     x2000     |     y2000     |    n    |    e    |    u    |")
             plik.write(f"\n")
             plik.write("-"*180)
             plik.write(f"\n")
-            for x, y, z, f, l, h,x92, y92, x00, y00, neu in zip(X, Y, Z, f, l, h, x92, y92, x00, y00, neu):
-                plik.write(f"|  {x:^.3f}   |   {y:^.3f}   |    {z:^.3f}    |    {f}    |    {l}    |    {h:^.3f}    |  {x92:^.3f}  |  {y92:^.3f}  |  {x00:^.3f}  |  {y00:^.3f}  |   {neu}   | \n")
+            for x, y, z, f, l, h,x92, y92, x00, y00, n, e, u in zip(X, Y, Z, f, l, h, x92, y92, x00, y00, N, E, U):
+                plik.write(f"|  {x:^11.3f}   |   {y:^11.3f}   |    {z:^11.3f}    |    {f}    |    {l}    |    {h:^7.3f}    |  {x92:^10.3f}  |  {y92:^10.3f}  |  {x00:^10.3f}  |  {y00:^10.3f}  |   {n}   |   {e}   |   {u}   | \n")
             plik.write("-"*180)
     
     
@@ -441,11 +462,9 @@ if __name__ == "__main__":
     Y92=[]
     X00=[]
     Y00=[]
-    NEU=[]
-    #Chwilowe
-    for i in X:
-        a=3
-        NEU.append(a)
+    N=[]
+    E=[]
+    U=[]
     for x, y, z in zip(X, Y, Z):
         f,l,h = geo.hirvonen(x, y, z, output="dms")
         F.append(f)
@@ -458,15 +477,14 @@ if __name__ == "__main__":
         x00, y00 = geo.flh2PL00(f,l)
         X00.append(x00)
         Y00.append(y00)
-    
-    Transformacje.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, NEU)
-    #zrobić neu
-    '''
-        if 
-        neu=geo.xyz2neu(f,l, Xa, Ya, Za, Xb, Yb, Zb)
-    
-    Transformacje.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, NEU)
-    
-    f,l,h = geo.hirvonen(2, 2, 2, output="dms")
-    print(f)
-    '''
+
+    i=0
+    while i<10:
+        f, l, h = geo.hirvonen(X[i], Y[i], Z[i])
+        n, e, u=Transformacje.xyz2neu(f, l, X[i], Y[i], Z[i], X[i+1], Y[i+1], Z[i+1])
+        N.append(n)
+        E.append(e)
+        U.append(u)
+        i+=1
+
+    Transformacje.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, N, E, U)
