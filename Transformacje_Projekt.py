@@ -7,7 +7,6 @@ Created on Sun Apr 23 11:56:02 2023
 
 import numpy as np
 import argparse
-from math import radians
 
 
 class Transformacje:
@@ -161,8 +160,8 @@ class Transformacje:
               [metry] - współrzędne w układzie orto-kartezjańskim
 
         '''
-        f=radians(f)
-        l=radians(l)
+        f=np.radians(f)
+        l=np.radians(l)
         N = Transformacje.get_np(self, f)
         X = (N + h) * np.cos(f) * np.cos(l)
         Y = (N + h) * np.cos(f) * np.sin(l)
@@ -190,10 +189,10 @@ class Transformacje:
         '''
         
         if l > 25.5 or l < 13.5:
-            raise NotImplementedError(f"{Transformacje.dms(self, radians(l))} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL1992")
+            raise NotImplementedError(f"{Transformacje.dms(self, np.radians(l))} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL1992")
             
         if f > 55 or f < 48.9:
-            raise NotImplementedError(f"{Transformacje.dms(self, radians(f))} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL1992")
+            raise NotImplementedError(f"{Transformacje.dms(self, np.radians(f))} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL1992")
             
         f = np.radians(f)
         l = np.radians(l)
@@ -253,10 +252,10 @@ class Transformacje:
         elif l >= 22.5 and l <= 25.5:
             l0 = np.radians(24)
         else:
-            raise NotImplementedError(f"{Transformacje.dms(self, radians(l))} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
+            raise NotImplementedError(f"{Transformacje.dms(self, np.radians(l))} ten południk nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
         
         if f > 55 or f < 48.9:
-            raise NotImplementedError(f"{Transformacje.dms(self, radians(f))} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
+            raise NotImplementedError(f"{Transformacje.dms(self, np.radians(f))} ten równoleżnik nie jest obsługiwany przez układ współrzędnych płaskich PL2000")
             
         f = np.radians(f)
         l = np.radians(l)
@@ -287,7 +286,7 @@ class Transformacje:
         return(x00,y00)
     
     
-    def get_dXYZ(xa, ya, za, xb, yb, zb):
+    def get_dXYZ(self, xa, ya, za, xb, yb, zb):
         '''
         funkcja liczy macierz rówżnicy współrzednych punktów A i B, która jest potrzebna do obliczenia macierzy neu
 
@@ -306,7 +305,7 @@ class Transformacje:
         return(dXYZ)
     
     
-    def rneu(f, l):
+    def rneu(self, f, l):
         '''
         Funkcja tworzy macierz obrotu R, która jest potrzebna do obliczenia macierzy neu
 
@@ -323,15 +322,15 @@ class Transformacje:
             macierz obrotu R
              
         '''
-        f=radians(f)
-        l=radians(l)
+        f=np.radians(f)
+        l=np.radians(l)
         R = np.array([[-np.sin(f)*np.cos(l), -np.sin(l), np.cos(f)*np.cos(l)],
                       [-np.sin(f)*np.sin(l),  np.cos(l), np.cos(f)*np.sin(l)],
                       [np.cos(f),             0,         np.sin(f)          ]])
         return(R)
     
     
-    def xyz2neu(f, l, xa, ya, za, xb, yb, zb):
+    def xyz2neu(self, f, l, xa, ya, za, xb, yb, zb):
         '''
         Układ współrzędnych horyzontalnych – układ współrzędnych astronomicznych, w którym oś główną stanowi 
         lokalny kierunek pionu, a płaszczyzną podstawową jest płaszczyzna horyzontu astronomicznego. 
@@ -459,13 +458,15 @@ if __name__ == "__main__":
         x00, y00 = geo.flh2PL00(f,l)
         X00.append(x00)
         Y00.append(y00)
+    
     Transformacje.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, NEU)
     #zrobić neu
     '''
         if 
         neu=geo.xyz2neu(f,l, Xa, Ya, Za, Xb, Yb, Zb)
-        '''
+    
     Transformacje.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, NEU)
     
     f,l,h = geo.hirvonen(2, 2, 2, output="dms")
     print(f)
+    '''
