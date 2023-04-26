@@ -26,13 +26,13 @@ print("")
 if args.l >= 13.5 and args.l <= 25.5 and args.f <= 55.0 and args.f >= 48.9:
     x92, y92 = geo.flh2PL92(args.f,args.l)
     x00, y00 = geo.flh2PL00(args.f,args.l)
-    print(f"Wyniki_z_transformacji_flh2PL92_I_flh2PL00; X92 = {x92:^.3f}[m], Y92 = {y92:^.3f}[m], X00 = {x00:^.3f}[m], Y00 = {y00:^.3f}[m]")
+    print(f"Wyniki_z_transformacji_flh2PL92_I_flh2PL00; X1992 = {x92:^.3f}[m], Y1992 = {y92:^.3f}[m], X2000 = {x00:^.3f}[m], Y2000 = {y00:^.3f}[m]")
 else:
     x92 = " '-' " 
     y92 = " '-' " 
     x00 = " '-' " 
     y00 = " '-' " 
-    print(f"Wyniki_z_transformacji_flh2PL92_i_flh2PL00; X92 = {x92}[m], Y92 = {y92}[m], X00 = {x00}[m], Y00 = {y00}[m]")
+    print(f"Wyniki_z_transformacji_flh2PL92_i_flh2PL00; X1992 = {x92}[m], Y1992 = {y92}[m], X2000 = {x00}[m], Y2000 = {y00}[m]")
     print("to położenie nie jest obsługiwane przez nie jest obsługiwany przez układ współrzędnych płaskich PL1992 i PL2000")
 
 print("")
