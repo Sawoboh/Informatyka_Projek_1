@@ -517,7 +517,7 @@ class Transformacje:
         '''
         
         with open(Dane, "r") as plik:
-            tab=np.genfromtxt(plik, delimiter=",", dtype = '<U10', skip_header = 4)
+            tab=np.genfromtxt(plik, delimiter=",", dtype = '<U20', skip_header = 4)
             X=[]
             Y=[]
             Z=[]
