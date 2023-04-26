@@ -413,3 +413,178 @@ class Test_Transoframcje:
         z = test_zamiana_float2string_Krasowski.zamiana_float2string(0)
         assert x == "               23.241"
         assert z == "                0.000"
+        
+    
+    def test_wczytanie_pliku_GRS80_WGS84_Krasowski(self):
+        test_wczytanie_pliku_GRS80 = Transformacje("GRS80")
+        X, Y, Z, C = test_wczytanie_pliku_GRS80.wczytanie_pliku("wsp_inp.txt")
+        assert X[0] == 3664940.500
+        assert Y[3] == 1409153.560
+        assert X[8] == 3664940.515
+        assert Z[5] == 5009571.166
+        
+        test_wczytanie_pliku_GRS80 = Transformacje("GRS80")
+        X, Y, Z, C = test_wczytanie_pliku_GRS80.wczytanie_pliku("wsp_inp_Losowe_dane.txt")
+        assert X[0] == 12
+        assert Y[3] == 1409153.564
+        assert X[8] == 12
+        assert Z[5] == 1
+        
+        test_wczytanie_pliku_WGS84 = Transformacje("WGS84")
+        X, Y, Z, C = test_wczytanie_pliku_WGS84.wczytanie_pliku("wsp_inp.txt")
+        assert X[0] == 3664940.500
+        assert Y[3] == 1409153.560
+        assert X[8] == 3664940.515
+        assert Z[5] == 5009571.166
+        
+        test_wczytanie_pliku_WGS84 = Transformacje("WGS84")
+        X, Y, Z, C = test_wczytanie_pliku_WGS84.wczytanie_pliku("wsp_inp_Losowe_dane.txt")
+        assert X[0] == 12
+        assert Y[3] == 1409153.564
+        assert X[8] == 12
+        assert Z[5] == 1
+        
+        test_wczytanie_pliku_Krasowski = Transformacje("Krasowski")
+        X, Y, Z, C = test_wczytanie_pliku_Krasowski.wczytanie_pliku("wsp_inp.txt")
+        assert X[0] == 3664940.500
+        assert Y[3] == 1409153.560
+        assert X[8] == 3664940.515
+        assert Z[5] == 5009571.166
+        
+        test_wczytanie_pliku_Krasowski = Transformacje("GRS80")
+        X, Y, Z, C = test_wczytanie_pliku_Krasowski.wczytanie_pliku("wsp_inp_Losowe_dane.txt")
+        assert X[0] == 12
+        assert Y[3] == 1409153.564
+        assert X[8] == 12
+        assert Z[5] == 1
+        
+    
+    def test_zapisaniePliku_GRS80_WGS84_Krasowski(self):
+        test_zapisaniePliku_GRS80 = Transformacje("GRS80")
+        X = [3664940.500, 3664940.510]
+        Y = [1409153.590, 1409153.580]
+        Z = [5009571.170, 5009571.167]
+        x92 = [472071.341, 472071.334]
+        y92 = [639114.491, 639114.478]
+        x00 = [5773722.721, 5773722.715]
+        y00 = [7502160.783, 7502160.770]
+        N = [-0.0072609883070758, -0.0063760985828238]
+        E = [-0.0102657604124220, -0.0129226474742650]
+        U = [0.0069204196245229, 0.0011621283046183]
+        f,l,h = test_zapisaniePliku_GRS80.hirvonen(X[0], Y[0], Z[0], output="dms")
+        f1,l1,h1 = test_zapisaniePliku_GRS80.hirvonen(X[1], Y[1], Z[1], output="dms")
+        X[0] = test_zapisaniePliku_GRS80.zamiana_float2string(X[0])
+        X[1] = test_zapisaniePliku_GRS80.zamiana_float2string(X[1])
+        Y[0] = test_zapisaniePliku_GRS80.zamiana_float2string(Y[0])
+        Y[1] = test_zapisaniePliku_GRS80.zamiana_float2string(Y[1])
+        Z[0] = test_zapisaniePliku_GRS80.zamiana_float2string(Z[0])
+        Z[1] = test_zapisaniePliku_GRS80.zamiana_float2string(Z[1])
+        h = test_zapisaniePliku_GRS80.zamiana_float2string(h)
+        h1 = test_zapisaniePliku_GRS80.zamiana_float2string(h1)
+        x92[0] = test_zapisaniePliku_GRS80.zamiana_float2string(x92[0])
+        x92[1] = test_zapisaniePliku_GRS80.zamiana_float2string(x92[1])
+        y92[0] = test_zapisaniePliku_GRS80.zamiana_float2string(y92[0])
+        y92[1] = test_zapisaniePliku_GRS80.zamiana_float2string(y92[1])
+        x00[0] = test_zapisaniePliku_GRS80.zamiana_float2string(x00[0])
+        x00[1] = test_zapisaniePliku_GRS80.zamiana_float2string(x00[1])
+        y00[0] = test_zapisaniePliku_GRS80.zamiana_float2string(y00[0])
+        y00[1] = test_zapisaniePliku_GRS80.zamiana_float2string(y00[1])
+        assert X[0] == "          3664940.500"
+        assert Y[1] == "          1409153.580"
+        assert Z[0] == "          5009571.170"
+        assert f == " 52°05′50.17999″"
+        assert l1 == " 21°01′53.51932″"
+        assert h == "              141.399"
+        assert x92[0] == "           472071.341"
+        assert y92[1] == "           639114.478"
+        assert x00[1] == "          5773722.715"
+        assert y00[1] == "          7502160.770"
+        assert N[0] == -0.0072609883070758
+        assert E[0] == -0.0102657604124220
+        assert U[0] == 0.0069204196245229
+        
+        test_zapisaniePliku_WGS84 = Transformacje("WGS84")
+        X = [3664940.500, 3664940.510]
+        Y = [1409153.590, 1409153.580]
+        Z = [5009571.170, 5009571.167]
+        x92 = [472071.341, 472071.334]
+        y92 = [639114.491, 639114.478]
+        x00 = [5773722.721, 5773722.715]
+        y00 = [7502160.783, 7502160.770]
+        N = [-0.0072609883070758, -0.0063760985828238]
+        E = [-0.0102657604124220, -0.0129226474742650]
+        U = [0.0069204196245229, 0.0011621283046183]
+        f,l,h = test_zapisaniePliku_WGS84.hirvonen(X[0], Y[0], Z[0], output="dms")
+        f1,l1,h1 = test_zapisaniePliku_WGS84.hirvonen(X[1], Y[1], Z[1], output="dms")
+        X[0] = test_zapisaniePliku_WGS84.zamiana_float2string(X[0])
+        X[1] = test_zapisaniePliku_WGS84.zamiana_float2string(X[1])
+        Y[0] = test_zapisaniePliku_WGS84.zamiana_float2string(Y[0])
+        Y[1] = test_zapisaniePliku_WGS84.zamiana_float2string(Y[1])
+        Z[0] = test_zapisaniePliku_WGS84.zamiana_float2string(Z[0])
+        Z[1] = test_zapisaniePliku_WGS84.zamiana_float2string(Z[1])
+        h = test_zapisaniePliku_WGS84.zamiana_float2string(h)
+        h1 = test_zapisaniePliku_WGS84.zamiana_float2string(h1)
+        x92[0] = test_zapisaniePliku_WGS84.zamiana_float2string(x92[0])
+        x92[1] = test_zapisaniePliku_WGS84.zamiana_float2string(x92[1])
+        y92[0] = test_zapisaniePliku_WGS84.zamiana_float2string(y92[0])
+        y92[1] = test_zapisaniePliku_WGS84.zamiana_float2string(y92[1])
+        x00[0] = test_zapisaniePliku_WGS84.zamiana_float2string(x00[0])
+        x00[1] = test_zapisaniePliku_WGS84.zamiana_float2string(x00[1])
+        y00[0] = test_zapisaniePliku_WGS84.zamiana_float2string(y00[0])
+        y00[1] = test_zapisaniePliku_WGS84.zamiana_float2string(y00[1])
+        assert X[0] == "          3664940.500"
+        assert Y[1] == "          1409153.580"
+        assert Z[0] == "          5009571.170"
+        assert f == " 52°05′50.17999″"
+        assert l1 == " 21°01′53.51932″"
+        assert h == "              141.399"
+        assert x92[0] == "           472071.341"
+        assert y92[1] == "           639114.478"
+        assert x00[1] == "          5773722.715"
+        assert y00[1] == "          7502160.770"
+        assert N[0] == -0.0072609883070758
+        assert E[0] == -0.0102657604124220
+        assert U[0] ==  0.0069204196245229
+        
+        test_zapisaniePliku_Krasowski = Transformacje("Krasowski")
+        X = [3664940.500, 3664940.510]
+        Y = [1409153.590, 1409153.580]
+        Z = [5009571.170, 5009571.167]
+        x92 = [472071.341, 472071.334]
+        y92 = [639114.491, 639114.478]
+        x00 = [5773722.721, 5773722.715]
+        y00 = [7502160.783, 7502160.770]
+        N = [-0.0072609883070758, -0.0063760985828238]
+        E = [-0.0102657604124220, -0.0129226474742650]
+        U = [0.0069204196245229, 0.0011621283046183]
+        f,l,h = test_zapisaniePliku_Krasowski.hirvonen(X[0], Y[0], Z[0], output="dms")
+        f1,l1,h1 = test_zapisaniePliku_Krasowski.hirvonen(X[1], Y[1], Z[1], output="dms")
+        X[0] = test_zapisaniePliku_Krasowski.zamiana_float2string(X[0])
+        X[1] = test_zapisaniePliku_Krasowski.zamiana_float2string(X[1])
+        Y[0] = test_zapisaniePliku_Krasowski.zamiana_float2string(Y[0])
+        Y[1] = test_zapisaniePliku_Krasowski.zamiana_float2string(Y[1])
+        Z[0] = test_zapisaniePliku_Krasowski.zamiana_float2string(Z[0])
+        Z[1] = test_zapisaniePliku_Krasowski.zamiana_float2string(Z[1])
+        h = test_zapisaniePliku_Krasowski.zamiana_float2string(h)
+        h1 = test_zapisaniePliku_Krasowski.zamiana_float2string(h1)
+        x92[0] = test_zapisaniePliku_Krasowski.zamiana_float2string(x92[0])
+        x92[1] = test_zapisaniePliku_Krasowski.zamiana_float2string(x92[1])
+        y92[0] = test_zapisaniePliku_Krasowski.zamiana_float2string(y92[0])
+        y92[1] = test_zapisaniePliku_Krasowski.zamiana_float2string(y92[1])
+        x00[0] = test_zapisaniePliku_Krasowski.zamiana_float2string(x00[0])
+        x00[1] = test_zapisaniePliku_Krasowski.zamiana_float2string(x00[1])
+        y00[0] = test_zapisaniePliku_Krasowski.zamiana_float2string(y00[0])
+        y00[1] = test_zapisaniePliku_Krasowski.zamiana_float2string(y00[1])
+
+        assert Y[1] == "          1409153.580"
+        assert Z[0] == "          5009571.170"
+        assert f == " 52°05′50.09508″"
+        assert l1 == " 21°01′53.51932″"
+        assert h == "               31.717"
+        assert x92[0] == "           472071.341"
+        assert y92[1] == "           639114.478"
+        assert x00[1] == "          5773722.715"
+        assert y00[1] == "          7502160.770"
+        assert N[0] == -0.0072609883070758
+        assert E[0] == -0.0102657604124220
+        assert U[0] ==  0.0069204196245229
