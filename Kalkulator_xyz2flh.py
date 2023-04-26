@@ -25,14 +25,9 @@ fi, lam, ha = geo.hirvonen(args.x, args.y, args.z, output="dms")
 
 print("")
 print("")
-print("")
-print("")
+print("Elipsida:", args.m)
 print(f"Wyniki_z_algorytmu_hirvonen'a; fi = {fi}, lam = {lam}, ha = {ha:^.3f}[m]")
-print("Nazwa pliku głównego:", Transformacje_Projekt.__name__)
-print("")
-print("")
-print("")
-print("")
+
 fi, lam, ha = geo.hirvonen(args.x, args.y, args.z)
 if lam >= 13.5 and lam <= 25.5 and fi <= 55.0 and fi >= 48.9:
     x92, y92 = geo.flh2PL92(args.f,args.l)
@@ -44,10 +39,11 @@ else:
     x00 = " '-' " 
     y00 = " '-' " 
     print(f"Wyniki_z_transformacji_flh2PL92_i_flh2PL00; X1992 = {x92}[m], Y1992 = {y92}[m], X2000 = {x00}[m], Y2000 = {y00}[m]")
-    print("to położenie nie jest obsługiwane przez nie jest obsługiwany przez układ współrzędnych płaskich PL1992 i PL2000")
+    print("To położenie nie jest obsługiwane przez układy współrzędnych płaskich PL1992 i PL2000")
 
-print("")
 print("Nazwa pliku głównego:", Transformacje_Projekt.__name__)
+print("")
+print("")
 
 
 """
