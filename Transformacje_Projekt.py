@@ -6,7 +6,7 @@ Created on Sun Apr 23 11:56:02 2023
 """
 
 import numpy as np
-import argparse
+from argparse import ArgumentParser
 
 
 class Transformacje:
@@ -543,10 +543,15 @@ class Transformacje:
     
     
 if __name__ == "__main__":
-
     geo = Transformacje("GRS80")
     geo.wczytanie_zapisanie_pliku("wsp_inp.txt")
-    #geo.wczytanie_zapisanie_pliku("wsp_inp_Losowe_dane.txt")
+    
+    parser = ArgumentParser()
+    parser.add_argument('-m', '--m', type=str, help="Podaj jedną z wskazanych elipsoid: GRS80, WGS84, Krasowski")
+    parser.add_argument('-t', '--t', type=str, help="Podaj nazwe pliku tekstowego z rozszerzeniem txt")
+    args = parser.parse_args()
+    geo = Transformacje(args.m)
+    geo.wczytanie_zapisanie_pliku(args.t)
     
     
     
