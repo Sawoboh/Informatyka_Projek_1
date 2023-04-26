@@ -340,57 +340,6 @@ class Transformacje:
                       [np.cos(f),             0,         np.sin(f)          ]])
         return(R)
     
-    """
-    def xyz2neu(self, f, l, xa, ya, za, xb, yb, zb):
-        '''
-        Układ współrzędnych horyzontalnych – układ współrzędnych astronomicznych, w którym oś główną stanowi 
-        lokalny kierunek pionu, a płaszczyzną podstawową jest płaszczyzna horyzontu astronomicznego. 
-        Biegunami układu są zenit i nadir. Ich położenie na sferze niebieskiej zależy od współrzędnych geograficznych 
-        obserwatora oraz momentu obserwacji, tak więc współrzędne horyzontalne opisują jedynie chwilowe położenie ciała niebieskiego.
-
-        Parametry
-        ----------
-        f : FLOAT
-            [stopnie dziesiętne] - szerokość geodezyjna..
-        l : FLOAT
-            [stopnie dziesiętne] - długośc geodezyjna.
-        XA, YA, ZA, XB, YB, ZB: FLOAT
-             współrzędne w układzie orto-kartezjańskim, 
-
-        Returns
-        -------
-        neu ARRAY
-            współrzędne horyzontalne
-            
-
-        '''
-        dX = Transformacje.get_dXYZ(self, xa, ya, za, xb, yb, zb)
-        R = Transformacje.rneu(self, f,l)
-        neu = R.T @ dX
-        n=neu[0]
-        if n > 0:
-            n="%.4f"%n
-            n=str(n)
-            n=" "+n
-        else:
-            n="%.4f"%n
-        e=neu[1]
-        if e > 0:
-            e="%.4f"%e
-            e=str(e)
-            e=" "+e
-        else:
-            e="%.4f"%e
-        u=neu[2]
-        if u > 0:
-            u="%.4f"%u
-            u=str(u)
-            u=" "+u
-        else:
-            u="%.4f"%u
-        return(n, e, u)
-        """
-    
     
     def xyz2neu(self, f, l, xa, ya, za, xb, yb, zb):
         '''
@@ -634,47 +583,3 @@ if __name__ == "__main__":
     
     
     
-    """
-    geo = Transformacje(model = "GRS80")
-    X, Y, Z, C = geo.wczytanie_pliku("wsp_inp_Losowe_dane.txt")
-    F=[]
-    L=[]
-    H=[]
-    X92=[]
-    Y92=[]
-    X00=[]
-    Y00=[]
-    N=[]
-    E=[]
-    U=[]
-    for x, y, z in zip(X, Y, Z):
-        f,l,h = geo.hirvonen(x, y, z, output="dms")
-        F.append(f)
-        L.append(l)
-        H.append(h)
-        f,l,h = geo.hirvonen(x, y, z)
-        
-        if l >= 13.5 and l <= 25.5 and f <= 55.0 and f >= 48.9:
-            x92, y92 = geo.flh2PL92(f,l)
-            X92.append(x92)
-            Y92.append(y92)
-            x00, y00 = geo.flh2PL00(f,l)
-            X00.append(x00)
-            Y00.append(y00)
-        else:
-            x92 = 1; X92.append(x92)
-            y92 = 1; Y92.append(y92)
-            x00 = 1; X00.append(x00)
-            y00 = 1; Y00.append(y00)
-
-    i=0
-    while i<(C-1):
-        f, l, h = geo.hirvonen(X[i], Y[i], Z[i])
-        n, e, u = geo.xyz2neu(f, l, X[i], Y[i], Z[i], X[i+1], Y[i+1], Z[i+1])
-        N.append(n)
-        E.append(e)
-        U.append(u)
-        i+=1
-
-    geo.zapisaniePliku(X, Y, Z, F, L, H, X92, Y92, X00, Y00, N, E, U)
-    """
