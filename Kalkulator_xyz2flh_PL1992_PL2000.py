@@ -45,12 +45,3 @@ print("Nazwa pliku głównego:", Transformacje_Projekt.__name__)
 print("")
 print("")
 
-
-"""
-x92, y92 = geo.flh2PL92(f, l)
-x00, y00 = geo.flh2PL00(f, l)
-print("")
-print(f"Wyniki_z_przeliczenia_na_układ_PL1992; x1992 = {x92:^.3f}, y1992 = {y92:^.3f}")
-print("")
-print(f"Wyniki_z_przeliczenia_na_układ_PL2000; x2000 = {x00:^.3f}, y2000 = {y00:^.3f}")
-"""
