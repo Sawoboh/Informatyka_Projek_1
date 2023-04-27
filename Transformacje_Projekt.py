@@ -7,6 +7,7 @@ Created on Sun Apr 23 11:56:02 2023
 
 import numpy as np
 from argparse import ArgumentParser
+import os as os
 
 
 class Transformacje:
@@ -390,7 +391,7 @@ class Transformacje:
         return(n, e, u)
     
 
-    def zapisaniePliku(self, X, Y, Z, f, l, h, x92, y92, x00, y00, N, E, U): 
+    def zapisaniePliku(self, X, Y, Z, f, l, h, x92, y92, x00, y00, N, E, U, xyz_txt, neu_txt ): 
         '''
         funkcja zapisuje wyniki obliczeń (x, y, z, f, l, h, x92, y92, x1992, y1992, x2000, y2000 ,neu).
         Tworzy z nich tabele.
@@ -422,7 +423,7 @@ class Transformacje:
             Y[i] = Transformacje.zamiana_float2string(self, Y[i])
             Z[i] = Transformacje.zamiana_float2string(self, Z[i])
         
-        with open("Wyniki_transformacji_X_Y_Z_fi_lambda_h_x1992_y1992_x2000_y2000.txt", "w",  encoding="utf-8") as plik:
+        with open(xyz_txt , "w",  encoding="utf-8") as plik:
             plik.write(f"Wyniki_obliczen_Geodezyjnych; X, Y, Z, fi, lambda, h, x1992, y1992, x2000, y2000.\n")
             plik.write(f"Znak '-' w koordynatach; x1992, y1992, x2000, y2000 oznacza, że dla podanych współrzędnych ortokartezjańskich (X, Y, Z) po obliczeniu współrzędnych geodezyjnych fi i lambda. fi i lambda nie należą do dozwolonych współrzędnych \ngeodezyjnych układów PL1992, PL2000.\n")
             plik.write("-"*221)
@@ -436,7 +437,7 @@ class Transformacje:
                 plik.write(f"\n")
             plik.write("-"*221)
         
-        with open("Wyniki_transformacji_n_e_u.txt", "w", encoding="utf-8") as plik1:
+        with open(neu_txt , "w", encoding="utf-8") as plik1:
             plik1.write(f"Wyniki_obliczen_Geodezyjnych; n, e, u.\n")
             plik1.write("-"*154)
             plik1.write(f"\n")
@@ -481,7 +482,22 @@ class Transformacje:
         return(X, Y, Z, ilosc_wierszy)
     
     
-    def wczytanie_zapisanie_pliku(self, Dane):
+    def wczytanie_zapisanie_pliku(self, Dane, output ='dms' , xyz_txt = 'Wyniki_transformacji_X_Y_Z_fi_lambda_h_x1992_y1992_x2000_y2000.txt', neu_txt = "Wyniki_transformacji_n_e_u.txt" ):
+        '''
+        wczytanie i zapisanie pliku za pomocą jednej funkcji
+
+        Parameters
+        ----------
+        Dane : txt
+            Plik z danymi xyz.
+        output : str
+            sposób w jakiej ma zapisywać współrzędne f, l [dms, radiany, dec_degree] .
+
+        Returns
+        -------
+        Plik txt
+
+        '''
         X, Y, Z, C = Transformacje.wczytanie_pliku(self, Dane)
         F=[]
         L=[]
@@ -495,9 +511,20 @@ class Transformacje:
         U=[]
         
         for x, y, z in zip(X, Y, Z):
-            f,l,h = Transformacje.hirvonen(self, x, y, z, output="dms")
-            F.append(f)
-            L.append(l)
+            f,l,h = Transformacje.hirvonen(self, x, y, z, output = output)
+            if output == "dms":
+                F.append(f)
+                L.append(l)
+            elif output == "radiany":
+                f=Transformacje.zamiana_float2string_rad(self,f)
+                l=Transformacje.zamiana_float2string_rad(self,l)
+                F.append(f)
+                L.append(l)
+            else:
+                f=Transformacje.zamiana_float2string_fl(self,f)
+                l=Transformacje.zamiana_float2string_fl(self,l)
+                F.append(f)
+                L.append(l)
             H.append(Transformacje.zamiana_float2string(self, h))
             f,l,h = Transformacje.hirvonen(self, x, y, z)
             
@@ -529,10 +556,76 @@ class Transformacje:
             U.append(u)
             i+=1
         
-        Transformacje.zapisaniePliku(self, X, Y, Z, F, L, H, X92, Y92, X00, Y00, N, E, U)
-       
+        Transformacje.zapisaniePliku(self, X, Y, Z, F, L, H, X92, Y92, X00, Y00, N, E, U, xyz_txt, neu_txt )     
         
+        
+    def zamiana_float2string_rad(self, liczba):
+        '''
+        zamienia z float na str z dokładnocia taką jaką musi mieć jednostka radiany. 
+        Zrobione jest to po to żeby wynik się ładnie zapisywał w pliku wynikowym 
+
+        Parameters
+        ----------
+        liczba : FLOAT
+            Liczba w radianach.
+
+        Returns
+        -------
+        liczba : STR
+            string z okreloną stała iloscia znaków
+
+        '''
+        zm_liczba = "%.12f"%liczba
+        P = 16
+        xx = len(zm_liczba)
+        while xx < P:
+            zm_liczba = str(" ") + zm_liczba
+            xx += 1
+        return(zm_liczba)  
+
+    
+    def zamiana_float2string_fl(self, liczba):
+        '''
+        zamienia z float na str z dokładnocia taką jaką musi mieć jednostka stopnie dziesiętne. 
+        Zrobione jest to po to żeby wynik się ładnie zapisywał w pliku wynikowym 
+
+        Parameters
+        ----------
+        liczba : FLOAT
+            Liczba w stopniach dziesiętnych.
+
+        Returns
+        -------
+        liczba : STR
+            string z okreloną stała iloscia znaków
+
+        '''
+        zm_liczba = "%.10f"%liczba
+        P = 16
+        xx = len(zm_liczba)
+        while xx < P:
+            zm_liczba = str(" ") + zm_liczba
+            xx += 1
+        return(zm_liczba)        
+    
+    
     def zamiana_float2string(self, liczba):
+        '''
+        zamienia z float na str z dokładnocia taką jaką musi mieć jednostka dms. 
+        Zrobione jest to po to żeby wynik się ładnie zapisywał w pliku wynikowym 
+
+        Parameters
+        ----------
+        liczba : FLOAT
+            Liczba w dms.
+
+        Returns
+        -------
+        liczbe : STR
+            string z okreloną stała iloscia znaków
+
+
+        '''
         zm_liczba = "%.3f"%liczba
         P = 21
         xx = len(zm_liczba)
@@ -542,6 +635,80 @@ class Transformacje:
         return(zm_liczba)
     
     
+    def zapis_w_kalkulatorach_xyz_flh_PL1992_PL2000(self, xyz_txt, x, y, z, f, l, h, x92, y92, x00, y00, output = "dms"):
+            f,l,h = Transformacje.hirvonen(self, x, y, z, output = output)
+            
+            if output == "dms":
+                f=f
+                l=l
+            elif output == "radiany":
+                f=Transformacje.zamiana_float2string_rad(self,f)
+                l=Transformacje.zamiana_float2string_rad(self,l)
+            else:
+                f=Transformacje.zamiana_float2string_fl(self,f)
+                l=Transformacje.zamiana_float2string_fl(self,l)
+            h = Transformacje.zamiana_float2string(self, h)
+            F,L,H = Transformacje.hirvonen(self, x, y, z)
+            
+            if L >= 13.5 and L <= 25.5 and F <= 55.0 and F >= 48.9:
+                x92, y92 = Transformacje.flh2PL92(self, F,L)
+                x92 = Transformacje.zamiana_float2string(self, x92)
+                y92 = Transformacje.zamiana_float2string(self, y92)
+                x00, y00 = Transformacje.flh2PL00(self, F,L)
+                x00 = Transformacje.zamiana_float2string(self, x00)
+                y00 = Transformacje.zamiana_float2string(self, y00)
+            else:
+                x92 = "         '-'         " 
+                y92 = "         '-'         " 
+                x00 = "         '-'         "
+                y00 = "         '-'         "
+            x = Transformacje.zamiana_float2string(self, x)
+            y = Transformacje.zamiana_float2string(self, y)
+            z = Transformacje.zamiana_float2string(self, z)
+            
+            if not os.path.exists(xyz_txt):
+                with open(xyz_txt, "w", encoding="utf-8") as plik:
+                    plik.write(f"Wyniki_obliczen_Geodezyjnych; X, Y, Z, fi, lambda, h, x1992, y1992, x2000, y2000.\n")
+                    plik.write(f"Znak '-' w koordynatach; x1992, y1992, x2000, y2000 oznacza, że dla podanych współrzędnych ortokartezjańskich (X, Y, Z) po obliczeniu współrzędnych geodezyjnych fi i lambda. fi i lambda nie należą do dozwolonych współrzędnych \ngeodezyjnych układów PL1992, PL2000.\n")
+                    plik.write("-"*221)
+                    plik.write(f"\n")
+                    plik.write(f"|          X          |          Y          |          Z          |          fi         |        lambda       |          h          |        x1992        |        y1992        |        x2000        |        y2000        |")
+                    plik.write(f"\n")
+                    plik.write("-"*221)
+                    plik.write(f"\n")
+                    plik.write(f"|{x}|{y}|{z}|     {f}|     {l}|{h}|{x92}|{y92}|{x00}|{y00}|")
+                    plik.write(f"\n")
+                    plik.write("-"*221)
+                    plik.write(f"\n")
+            else:
+                with open(xyz_txt, "a", encoding="utf-8") as plik:
+                    plik.write(f"|{x}|{y}|{z}|     {f}|     {l}|{h}|{x92}|{y92}|{x00}|{y00}|")
+                    plik.write(f"\n")
+                    plik.write("-"*221)
+                    plik.write(f"\n")
+            
+        
+    def zapis_w_kalkulatorze_neu(self, neu_txt, n, e, u):
+        if not os.path.exists(neu_txt):
+            with open(neu_txt , "w", encoding="utf-8") as plik1:
+                plik1.write(f"Wyniki_obliczen_Geodezyjnych; n, e, u.\n")
+                plik1.write("-"*154)
+                plik1.write(f"\n")
+                plik1.write(f"|                        n                         |                        e                         |                        u                         |")
+                plik1.write(f"\n")
+                plik1.write("-"*154)
+                plik1.write(f"\n")
+                plik1.write(f"|{n}|{e}|{u}|")
+                plik1.write(f"\n")
+                plik1.write("-"*154)  
+                plik1.write(f"\n")
+        else:
+            with open(neu_txt , "a", encoding="utf-8") as plik1:
+                plik1.write(f"|{n}|{e}|{u}|")
+                plik1.write(f"\n")
+                plik1.write("-"*154)
+                plik1.write(f"\n")
+        
 if __name__ == "__main__":
     geo = Transformacje("GRS80")
     geo.wczytanie_zapisanie_pliku("wsp_inp.txt")
@@ -549,10 +716,14 @@ if __name__ == "__main__":
     
     parser = ArgumentParser()
     parser.add_argument('-m', '--m', type=str, help="Podaj jedną z wskazanych elipsoid: GRS80, WGS84, Krasowski")
-    parser.add_argument('-t', '--t', type=str, help="Podaj nazwe pliku tekstowego z rozszerzeniem txt")
+    parser.add_argument('-t', '--t', type=str, help="Podaj nazwe pliku tekstowegoz danymi z rozszerzeniem txt")
+    parser.add_argument('-d', '--d', type=str, help="Podaj forme w jakiej ma sie zapisać fi i lambda: dms , radiany, dec_degree ")
+    parser.add_argument('-xyz', '--xyz', type=str, help="Podaj nazwe pliku wynikiowego dla xyz_flh_PL1992_PL2000 z rozszerzeniem txt")
+    parser.add_argument('-neu', '--neu', type=str, help="Podaj nazwe pliku wynikiowego dla neu z rozszerzeniem txt")
+    
     args = parser.parse_args()
     geo = Transformacje(args.m)
-    geo.wczytanie_zapisanie_pliku(args.t)
+    geo.wczytanie_zapisanie_pliku(args.t, args.d, args.xyz, args.neu)
     
     
     
