@@ -81,7 +81,7 @@ class Transformacje:
         
     def get_np(self, f):
         '''
-        funkcja liczy promień przekroju w pierwszym wertykale, który potrzebny jest nam do algorymu hirvonena,
+        funkcja liczy promień przekroju w pierwszym wertykale, który potrzebny jest nam między innymi do algorymu hirvonena,
         funkcji: flh2XYZ, flh2PL92, flh2PL00
         
         
