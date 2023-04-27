@@ -11,6 +11,7 @@ from Transformacje_Projekt import Transformacje
 
 parser = ArgumentParser()
 parser.add_argument('-m', '--m', type=str, help="Podaj jedną z wskazanych elipsoid: GRS80, WGS84, Krasowski")
+parser.add_argument('-neu', '--neu', type=str, help="Podaj nazwe pliku wynikiowego dla neu z rozszerzeniem txt")
 parser.add_argument('-xa', '--xa', type=float)
 parser.add_argument('-ya', '--ya', type=float)
 parser.add_argument('-za', '--za', type=float)
@@ -24,6 +25,8 @@ geo = Transformacje(model = args.m)
 f, l, h = geo.hirvonen(args.xa, args.ya, args.za)
 n, e, u = geo.xyz2neu(f, l, args.xa, args.ya, args.za, args.xb, args.yb, args.zb)
 
+
+geo.zapis_w_kalkulatorze_neu(args.neu, n, e, u)
 
 n = float(n)
 e = float(e)
