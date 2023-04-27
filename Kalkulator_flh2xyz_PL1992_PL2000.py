@@ -11,9 +11,12 @@ from Transformacje_Projekt import Transformacje
 
 parser = ArgumentParser()
 parser.add_argument('-m', '--m', type=str, help="Podaj jedną z wskazanych elipsoid: GRS80, WGS84, Krasowski")
+parser.add_argument('-xyz', '--xyz', type=str, help="Podaj nazwe pliku wynikiowego dla xyz_flh_PL1992_PL2000 z rozszerzeniem txt")
 parser.add_argument('-f', '--f', type=float)
 parser.add_argument('-l', '--l', type=float)
 parser.add_argument('-ha', '--ha', type=float)
+parser.add_argument('-output', '--output', type=str)
+
 args = parser.parse_args()
 
 geo = Transformacje(model = args.m)
@@ -39,3 +42,5 @@ else:
 print("Nazwa pliku głównego:", Transformacje_Projekt.__name__)
 print("")
 print("")
+
+geo.zapis_w_kalkulatorach_xyz_flh_PL1992_PL2000(args.xyz, x, y, z, args.f, args.l, args.ha, x92, y92, x00, y00, output = args.output )
