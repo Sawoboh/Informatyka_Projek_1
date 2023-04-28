@@ -8,6 +8,7 @@ Created on Sun Apr 23 11:56:02 2023
 import numpy as np
 from argparse import ArgumentParser
 import os as os
+import tkinter as tk
 
 
 class Transformacje:
@@ -752,6 +753,7 @@ class Transformacje:
                 plik1.write(f"\n")
                 plik1.write("-"*154)
                 plik1.write(f"\n")
+                
         
 if __name__ == "__main__":
     geo = Transformacje("GRS80")
