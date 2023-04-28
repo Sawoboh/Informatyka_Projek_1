@@ -299,7 +299,7 @@ class Transformacje:
     
     def get_dXYZ(self, xa, ya, za, xb, yb, zb):
         '''
-        funkcja liczy macierz rówżnicy współrzednych punktów A i B, która jest potrzebna do obliczenia macierzy neu
+        funkcja liczy macierz różnicy współrzednych punktów A i B, która jest potrzebna do obliczenia macierzy neu
 
         Parametry
         ----------
