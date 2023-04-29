@@ -56,6 +56,12 @@ class Transformacje:
         d = int(x)
         m = int(60 * (x - d))
         s = (x - d - m/60)*3600
+        if s > 59.999995:
+            s = 0
+            m = m + 1
+        if m == 60:
+            m = 0
+            d = d + 1
         
         d = str(d)
         if len(d) == 1:
@@ -638,7 +644,7 @@ class Transformacje:
         return(zm_liczba)
     
     
-    def zapis_w_kalkulatorach_xyz_flh_PL1992_PL2000(self, xyz_txt, x, y, z, f, l, h, x92, y92, x00, y00, output = "dms"):
+    def zapis_w_kalkulatorach_xyz_flh_PL1992_PL2000(self, xyz_txt, x, y, z, output = "dms"):
         '''
         Zapisanie pliku txt z danych wprowadzanych do pliku Kalkulatora który przelicza na PL2000, PL1992 ,xyz i flh
 
