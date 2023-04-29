@@ -1,0 +1,48 @@
+\section{Przebieg ćwiczenia}
+
+\subsection{Stworzenie klasy Transformacja}
+Stworzono klase Transformacje oraz \_{}\_{}init\_{}\_{} w której podano parametry elipidy (a, e2) dla jakich mozna wykonać obliczenia. Trzeba pamiętać ze za każdym razem gdy się będzie odwoływać do parametrów elipoidy należy poprzedzić to self. Następnie dodano przypadek w którym podane zostanie zła nazwa elipsoidy. Wtedy wyskoczy błąd.
+
+\subsection{Algorytm hirvonena} 
+Algorytm hirvoena przelicza współrzedne kartezjańskie (x y z) na współrzędne geodezyjne ($\phi$, $\lambda$, H). Algorytm był używany na zajeciach z Geodezji wyższej. Wtedy poznano idee tego rozwiązania. Natomiast do przypomnienia skorzystano z strony \href{http://www.asgeupos.pl/index.php?wpg_type=tech_transf&sub=xyz_blh}{www.asgeupos.pl - pdf z geodezyjnymi transformacjami}.\citep{Pdf.geodezyjny.dla.Polski} W funkcji implemetującej to rozwiązanie należało stworzyć pętle while która wykonuje potrzebną ilośc iteracji do uzyskania 1 milimetrowej dokładności. Stworzono jeszcze "output" za pomocą if, elif, else, czyli to w jakiej chcemy aby funkcja wzracała nam wynik: stopnie dziesiętne, radiany lub stopnie minuty sekundy. Do tej ostatniej metody stworzysliśmy osobną funkcje dms. Postanowiono określić output funkcji dla wielofunkcyjności algorytmu. Wykorzystano również funkcje get\_{}np która liczy promień przekroju w pierwszym wertykale. Wyniki zostały sprawdzone z wynikami jakie oddano w zaliczonym sprawozdaniu na semestrze III.
+
+\subsection{flh2XYZ} 
+Transformacja flh2xyz przelicza współrzedne geodezyjne ($\phi$, $\lambda$, H) na współrzene kartezjańskie (x y z). Transformacja była używana na zajeciach z Geodezji wyższej. Wtedy poznano idee tego rozwiązania. Natomiast do przypomnienia skorzystano z strony \href{http://www.asgeupos.pl/index.php?wpg_type=tech_transf&sub=xyz_blh}{www.asgeupos.pl - pdf z geodezyjnymi transformacjami}. W funkcji implemetującej to rozwiązanie należało zastosować trzy wzory. Kazdy z nich odpowiada jednej współrzednej kartezjańskiej. Wykorzystano również funkcje get\_{}np. Wyniki zostały sprawdzone z wynikami jakie oddano w zaliczonym sprawozdaniu na semestrze III.
+
+\subsection{fl2PL1992} 
+Transformacja fl2PL1992 przelicza współrzedne geodezyjne ($\phi$, $\lambda$) do układu 1992 ($x_{1992}$ $y_{1992}$). Transformacja była używana na zajeciach z Geodezji wyższej. Wtedy poznano idee tego rozwiązania. Natomiast do przypomnienia skorzystano z strony \href{http://www.asgeupos.pl/index.php?wpg_type=tech_transf&sub=xyz_blh}{www.asgeupos.pl - pdf z geodezyjnymi transformacjami}. W funkcji implemetującej dodaliśmy warunek na $\phi$ i $\lambda$ tak aby obejmowały tylko teren Polski. W przeciwnym razie wyskoczy błąd. Następnie zostały policzone poszczególne wartości z odpowiednich wzorów. Na końcu otrzymaliśmy $x_{1992}$ oraz $y_{1992}$. Wyniki zostały sprawdzone z wynikami jakie oddano w zaliczonym sprawozdaniu na semestrze III.
+
+\subsection{fl2PL2000} 
+Transformacja fl2PL2000 przelicza współrzedne geodezyjne ($\phi$, $\lambda$) do układu 2000 ($x_{2000}$ $y_{2000}$). Transformacja była używana na zajeciach z Geodezji wyższej. Wtedy poznano idee tego rozwiązania. Natomiast do przypomnienia skorzystano z strony \href{http://www.asgeupos.pl/index.php?wpg_type=tech_transf&sub=xyz_blh}{www.asgeupos.pl - pdf z geodezyjnymi transformacjami}. W funkcji implemetującej przebiega prawie identycznie jak transformacja fl2PL1992. Zmieniona została skala oraz doczyt która ze stref 5,6,7,8 jest dla strefą dla naszych danych. Na końcu otrzymaliśmy $x_{2000}$ oraz $y_{2000}$. Wyniki zostały sprawdzone z wynikami jakie oddano w zaliczonym sprawozdaniu na semestrze III.
+
+\subsection{xyz2neu} 
+Transformacja fl2PL2000 przelicza współrzedne katezjańskie (x y z) do układu neu.Transformacja była używana na zajeciach z Geodezji wyższej. Wtedy poznano idee tego rozwiązania. Natomiast do przypomnienia skorzystano z strony \href{http://www.asgeupos.pl/index.php?wpg_type=tech_transf&sub=xyz_blh}{www.asgeupos.pl - pdf z geodezyjnymi transformacjami}. W tym celu strorzono trzy definicje. Pierwszą na macierz obrotu (renu). Drugą liczy macierz zawierającą różnice miedzy dwoma punktami, a trzecia liczy już macierz neu w której pierwsza kolumna liczy \textit{n} druga \textit{e}, a trzecia \textit{u}. Wyniki zostały sprawdzone z wynikami jakie oddano w zaliczonym sprawozdaniu na semestrze III.
+
+\newpage
+\subsection{Wczytywanie i zapisywanie pliku}
+W celu odczytu i zapisu pliku zrobiono trzy funkcje. Pierwsza odczytuje plik txt Druga transformuje zmienne głównie do stringów. Robione jest to dla tego by wszystskie zmienne w pliku miały tą samą długość. Do tej zamiany użyto funkcji takich jak:
+\begin{itemize}
+\item zamianan\_{}float2string
+\item zamianan\_{}float2string\_{}fl
+\item zamianan\_{}float2string\_{}rad
+\end{itemize}
+Wszystekie działają na takiej zasadzie, czyli za pomocą pętli while dodawana jest spacja przed liczbą. Warunek się kończy wtedy kiedy string bedzie miał odpowiednią liość znaków. Trzecia zapsiuje plik w postaci tabelki z nagłówkiem. Postanowiono że dla punktu nienależącego do polskie w notatniku przy wyniku dla ($x_{1992}$ $y_{1992}$ $x_{2000}$ $y_{2000}$) zostaną zapisane myślniki (-)
+
+\subsection{Testy dla funkcji}
+Dla pewności użytkownika czy program nie doznał niechcącej zmiany stworzyliśmy plik o nazwie Testy\_{}dla\_{}funkcji.py. Uzyto biblioteki pytest która nie jest wbudowany w pythona. Należy go zainstalować w command window przy użyciu pipa. Przy użyciu anacondy instalolacja nie jest potrzebna. Za pomocą komendy assert sprawdzane są wyniki pozyskane z zaliczonych sprawozdań z geodezji wyzszej na semestrze III.   
+
+\subsection{Kalkulatory transformacji i zapis ich wyników do Kalkulatora}
+W celu pojedyńczej transformacji współrzednych do innych układów stworzono 4 kalkulatory. Pierwszy z nich nosi nazwie \textbf{"Kalkulator\_{}xyz2flh\_{}PL1992\_{}PL2000"} i wykorzystuje zimportowane transforacje z pliku głównego oraz biblioteke argparse, gdzie skorzystano z ArgumnetParser. Ma to na celu możliwość podawania przez użytkownika współrzednych kartezjańskich (x y z) oraz elipoidy. Następnie są liczone do układu geodezyjnego ($\phi$, $\lambda$, H) oraz w układzie PL1992 i PL2000. Na tej samej zasadzie powstały kolejne kalkulatory:
+\begin{itemize}
+	\item \textbf{"Kalkulator\_{}xyz2neu"} - liczy z współrzednych kartezjańskich (x y z) do układu neu
+    \item \textbf{"Kalkulator\_{}flh2xyz\_{}PL1992\_{}PL2000"} - liczy z współrzednych geodezyjnych ($\phi$, $\lambda$, H) do układu katezjańskiego (x y z), PL1992 i PL2000. 
+    \item \textbf{"Kalkulator\_{}flh2neu"} - liczy z współrzednych geodezyjnych ($\phi$, $\lambda$, H) do układu neu
+    \item \textbf{"Kalkulator\_{}xyz2flh\_{}PL1992\_{}PL2000"} - liczy z współrzednych kartezjańskich (x y z) do układu geodezyjnego ($\phi$, $\lambda$, H), PL1992 i PL2000.
+\end{itemize}
+Stworzono specjalne funkcje zapisujące wyniki w pliku głównym tj. Transformacje\_{}Projekt.py. Jedna z nich zapisuje wyniki xyz\_{}flh\_{}PL1992\_{}PL2000, a druga neu. W nich przeprowadzono niezbędne operacje na zmiennych np. zamienienie z float na str przy zachowaniu odpowiedniej ilości miejsc. Wszytsko po to aby podany plik wynikowy miał ładną postać. Również użyto biblioteki os aby rozpoznawać czy dany plik jest juz na naszym komputerze. Powoduje to iż nie jest tworzony nowy dokument z nagłówkami tylko do danego dokumentu podawane są kolejne liniki.
+
+\subsection{Dodanie możliwości wczytania pliku w argparse}
+W głównym pliku znajduje się również możliwość wczytania i zapisania pliku wynikowego przez biblioteke argparse.  Czyli dodano możliwość wczytania pliku z cmd. Korzystano z funkcji opisanych w rozdzile 3.7. Należy pamiętać ze wczytywany plik powinnien mieć odpowiednia forme taką jak plik "wsp\_{}inp.txt", który znajduje się na zdalnym repozytorium GitHub
+
+\subsection{Dodanie graficznego interfejsu GUI}
+Za pomocą biblioteki tkinter  stworzono dwa okna. Pierwsze z nich główne, a drugie wynikowe. Komenda tk.Label() służy do stworzenia tekstów ułatwiających użytkownikowi wprowadzania danych. Samo wprowadzenia danych odbyło się za pośrednictwem tk.Entry. Za pomocą komendy .insert dodano przykładowe wprowadzenie danych do okna. Okienka kalkulatora wyświetlają się nad wszytskimi aplikacjami które użytkownik ma włączone. W drugim oknie wyświelane są wyniki.

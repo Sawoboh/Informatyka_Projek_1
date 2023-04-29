@@ -1,0 +1,39 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdftex 2023.4.26)  28 APR 2023 18:48
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**"C:/Users/amaks/Desktop/Informatyka Geodezyjna_II/latex_do_sprawka_nr1/nasz_l
+atex/bib.bib"
+
+(C:/Users/amaks/Desktop/Informatyka Geodezyjna_II/latex_do_sprawka_nr1/nasz_lat
+ex/bib.bib
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no … in font cmr10!
+Missing character: There is no Å in font cmr10!
+Missing character: There is no ¼ in font cmr10!
+Missing character: There is no Å in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+
+Overfull \hbox (10.74602pt too wide) in paragraph at lines 1--7
+[]\tenrm @BookBorkowski.Przybylski2015, ti-tle = Ksika kucharska La-TeX, year =
+ 2015, au-thor = Marcin Borkowski|
+
+\hbox(6.94444+1.94444)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm @
+.\tenrm B
+.\tenrm o
+.\kern0.27779
+.etc.
+
+! Undefined control sequence.
+l.11     howpublished = {\url
+                             {http://www.geonet.net.pl/images/2002_12_uklady...
+
+? 
+! Emergency stop.
+l.11 
+     
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!

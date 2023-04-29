@@ -1,0 +1,22 @@
+\babel@toc {polish}{}\relax 
+\contentsline {section}{\numberline {1}Cel ćwiczenia}{2}{section.1}%
+\contentsline {section}{\numberline {2}Wykorzystane narzedzia i materiały potrzebne do replikacji ćwiczenia}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Wybrany język programowania i interpreter Spyder}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}System operacyjny}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Potrzebne biblioteki i pliki}{2}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Przebieg ćwiczenia}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Stworzenie klasy Transformacja}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Algorytm hirvonena}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}flh2XYZ}{3}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}fl2PL1992}{3}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}fl2PL2000}{3}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}xyz2neu}{3}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Wczytywanie i zapisywanie pliku}{4}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}Testy dla funkcji}{4}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.9}Kalkulatory transformacji i zapis ich wyników do Kalkulatora}{4}{subsection.3.9}%
+\contentsline {subsection}{\numberline {3.10}Dodanie możliwości wczytania pliku w argparse}{4}{subsection.3.10}%
+\contentsline {subsection}{\numberline {3.11}Dodanie graficznego interfejsu GUI}{4}{subsection.3.11}%
+\contentsline {section}{\numberline {4}Podsumowanie}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Rezultaty}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Umiejętności nabyte}{5}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Spostrzerzenia, probelmy i ich rozwizania:}{5}{subsection.4.3}%

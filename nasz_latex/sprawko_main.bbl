@@ -1,0 +1,129 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Borkowski%
+\ \BBA {} Przybylski%
+}{%
+Borkowski%
+\ \BBA {} Przybylski%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+Borkowski.Przybylski2015}
+\APACinsertmetastar {%
+Borkowski.Przybylski2015}%
+\begin{APACrefauthors}%
+Borkowski, M.%
+\BCBT {}\ \BBA {} Przybylski, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2015}.
+\newblock
+\APACrefbtitle {Książka kucharska LaTeX} {Książka kucharska latex}.
+\newblock
+\APACaddressPublisher{}{Springer Wien New York}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Chaniewski%
+}{%
+Chaniewski%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+argparse}
+\APACinsertmetastar {%
+argparse}%
+\begin{APACrefauthors}%
+Chaniewski, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+\APACrefbtitle {{Python argparse - przekazywanie parametrów (argumentów)
+  wiersza poleceń}.} {{Python argparse - przekazywanie parametrów
+  (argumentów) wiersza poleceń}.}
+\newblock
+\APAChowpublished
+  {\url{https://cwsi.pl/python/tutorial/python-argparse-przekazywanie-parametrow-argumentow-uruchomieniowych-do-skryptu/?fbclid=IwAR0ctjScWQ55Jeyhvl7gVSP01rGLeeKYItZFLiZINUfwEhES1Bn00NEaf3E}}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kadaj%
+}{%
+Kadaj%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+Pdf.geodezyjny.dla.Polski}
+\APACinsertmetastar {%
+Pdf.geodezyjny.dla.Polski}%
+\begin{APACrefauthors}%
+Kadaj, R\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{}{}.
+\newblock
+\APACrefbtitle {{Polskie układy współrzędnych polskie układy
+  współrzędnych polskie układy współrzędnych formuły transformacyjne,
+  algorytmy i programy}.} {{Polskie układy współrzędnych polskie układy
+  współrzędnych polskie układy współrzędnych formuły transformacyjne,
+  algorytmy i programy}.}
+\newblock
+\APAChowpublished
+  {\url{http://www.geonet.net.pl/images/2002_12_uklady_wspolrz.pdf}}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Stevenson%
+}{%
+Stevenson%
+}{%
+{\protect \APACyear {2021}}%
+}]{%
+argparse2}
+\APACinsertmetastar {%
+argparse2}%
+\begin{APACrefauthors}%
+Stevenson, V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2021}{}{}.
+\newblock
+\APACrefbtitle {{Command Line Parsing Arguments in Python with Argparse - Intro
+  and Demo}.} {{Command Line Parsing Arguments in Python with Argparse - Intro
+  and Demo}.}
+\newblock
+\APAChowpublished {\url{https://www.youtube.com/watch?v=53H_082uqfY}}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wang%
+\ \BBA {} Oliphant%
+}{%
+Wang%
+\ \BBA {} Oliphant%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+Anaconda}
+\APACinsertmetastar {%
+Anaconda}%
+\begin{APACrefauthors}%
+Wang, P.%
+\BCBT {}\ \BBA {} Oliphant, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+\APACrefbtitle {{Anaconda}.} {{Anaconda}.}
+\newblock
+\APAChowpublished {\url{https://www.anaconda.com/download}}.
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}

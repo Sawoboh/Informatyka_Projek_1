@@ -1,0 +1,44 @@
+\section{Podsumowanie}
+
+\subsection{Rezultaty}
+Link do zdalnego repozytorium GitHub: \href{https://github.com/Sawoboh/Informatyka_Projek_1.git}{https://github.com/Sawoboh/Informatyka\_{}Projek\_{}1.git} \\
+Znajduje sie na nim pliki o nazwie:
+\begin{itemize}
+\item Transformacje\_{}Projekt.py - główny plik w którym znajdują się transformacje oraz wywołanie przykładowego pliku txt wraz z zapisym do do pliku o nazwie Wyniki transformacji.txt.
+\item wsp\_{}inp.txt - zawierają przykładowe dane, które możemy przliczyć. 
+\item Kalkulator.py -  Cztery plik importujący biblioteke argparse. Za pomocą wiersza poleceń (cmd) należy  podać dane do obliczeń.
+\item Testy\_{}dla\_{}funkcji.py - plik importujący biblioteke pytest. Za pomocą wiersza poleceń (cmd) podać dane do obliczenia.
+\item TKinter.py - plik wywołuje kalkulator graficzny i okno wynikowe. 
+\end{itemize}
+
+\subsection{Umiejętności nabyte}
+\begin{itemize}
+	\item Sprawne pisanie plików tekstowych w latex w celu nauki skorzystliśmy z książki \citep{Borkowski.Przybylski2015}
+	\item Pisanie kodu obiektowego w Pythonie 
+	\item Posługiwanie się bibliotekami takimi jak: argparse, pytest, tkinter, os, numpy \citep{argparse} \citep{argparse2}
+	\item Praca zespołowa z wykorzystaniem platformy Github
+	\item Poprawienie jakości i przyśpieszenie pisania kodu w Pythonie
+\end{itemize}
+
+\subsection{Spostrzerzenia, probelmy i ich rozwizania:}
+Spostrzerzenia:
+\begin{itemize}
+\item Wraz ze wzrostem ilości czasu poświęconego na projekt, zauważano coraz wiecej luk w funkcjach, które usprawniono.
+\item Cały czas program nie jest kompletny w 100\%. Zawsze się znajdzie nowy pomysł który można zaimplementować.
+\end{itemize}
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|p{7cm}|p{7cm}|}
+		\hline
+		 Problem  &  Rozwizanie \\
+		\hline
+		Brak spójności w długości liczb w tabeli przez co plik wynikowy nie wyglądałby schludnie & Dodanie funkcji na dodanie spacji w stringu opisany w rozdziale 3.7  \\ \hline
+		Pojawianie się błedu w funkcji PL2000 i PL 1992 dla ($\phi$, $\lambda$) nie leżącego na terenie Polski & Dodane warunku na ($\phi$, $\lambda$) w którym jeśli warunek nie jest spełniony zapisuje w notatniku myslinik (-)\\ \hline
+		Dopisywanie do istniejącego pliku wyników & Wykorzystano biblioteke os do rozpoznania czy dany plik istnieje i podanie odpowiednich komend w przypadku gdy plik zostaje stworzony i do pliku zostają dopisane wyniki\\ \hline
+		Nieumijętność korzystania z biblioteki argparse & Doptytanie się na zajęciach informatyki geodezyjnej prowadzącego o wytłumaczenie jak korzystać z biblioteki \\ \hline
+		Nieumijętność korzystania z portala Github & Skorzystanie z materiałów uspodtępnionych przez prowadzącego zajecia informatyka geodezyjna\\ \hline
+		Brak możliości zresetowania tablicy z wynikami w pliku pytest &  \\ \hline
+		
+	\end{tabular}
+\end{table}
