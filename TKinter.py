@@ -71,9 +71,35 @@ def get_values():
     Tabelka16 = tk.Label(root2, text=g4)
     Tabelka16.grid(row=13,column=0, sticky="w")
     
+    Spacja = tk.Label(root2, text="").grid(row=14,column=0)
+    
+    val6 = str(oknoinput6.get())
+    if val6 == "stopnie_dziesiętne":
+        val6 = "dec_degree"
+    
+    val5 = str(oknoinput5.get())
+    if val5 == "TAK":
+        Tabelka17 = tk.Label(root2, text="====================================").grid(row=15, column=0)
+        Tabelka18 = tk.Label(root2, text="Wyniki zostały zapisane do notatnika.").grid(row=16, column=0)
+        Tabelka19 = tk.Label(root2, text="====================================").grid(row=17, column=0)
+        geo.zapis_w_kalkulatorach_xyz_flh_PL1992_PL2000("Wyniki_z_kalkulatora_graficznego.txt", val1, val2, val3, output = val6)
+    else:
+        Tabelka20 = tk.Label(root2, text="====================================").grid(row=15, column=0)
+        Tabelka31 = tk.Label(root2, text="Wyniki NIE zostały zapisane do notatnika.").grid(row=16, column=0)
+        Tabelka32 = tk.Label(root2, text="====================================").grid(row=17, column=0)
+        
+    val7 = str(oknoinput7.get())
+    if val7 == "TAK":
+        with open("Wyniki_z_kalkulatora_graficznego.txt", "r") as plik:
+            wiersze = plik.readlines()
+        with open("Wyniki_z_kalkulatora_graficznego.txt", "w") as plik:
+            plik.writelines(wiersze[0:6])            
+    val6 = str(oknoinput6.get())
+    
+    
 
 root = tk.Tk()
-root.geometry('262x417+300+300')
+root.geometry('262x477+300+300')
 root.title("Kalkulator graficzny")
 root.lift()
 root.attributes("-topmost", True)
@@ -135,13 +161,21 @@ oknoinput6.insert(0, "stopnie_dziesiętne")
 Spacja = tk.Label(root, text="").grid(row=18,column=0)
 
 
-przycisk = tk.Button(root, text="Dokonaj Obliczeń", command=get_values).grid(row=19,column=0)
+Tabelka22 = tk.Label(root, text="Czy wyczyścić tablice z danymi? [TAK/NIE]").grid(row=19,column=0)
+oknoinput7 = tk.Entry(root, width=42)
+oknoinput7.grid(row=20,column=0)
+oknoinput7.insert(0, "NIE")
 
+
+Spacja = tk.Label(root, text="").grid(row=21,column=0)
+
+
+przycisk = tk.Button(root, text="Dokonaj Obliczeń", command=get_values).grid(row=22,column=0)
 
 
 
 root2 = tk.Tk()
-root2.geometry('292x395+580+300')
+root2.geometry('292x375+580+300')
 root2.title("Wyniki Obliczeń")
 root2.lift()
 root2.attributes("-topmost", True)
