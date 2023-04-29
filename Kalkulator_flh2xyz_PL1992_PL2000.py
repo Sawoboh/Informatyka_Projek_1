@@ -43,4 +43,4 @@ print("Nazwa pliku głównego:", Transformacje_Projekt.__name__)
 print("")
 print("")
 
-geo.zapis_w_kalkulatorach_xyz_flh_PL1992_PL2000(args.xyz, x, y, z, args.f, args.l, args.ha, x92, y92, x00, y00, output = args.output )
+geo.zapis_w_kalkulatorach_xyz_flh_PL1992_PL2000(args.xyz, x, y, z, output = args.output)
