@@ -51,5 +51,14 @@ Wyniki: Współrzędne topocentryczne [n, e, u].
 Wyniki: Współrzędne geodezyjne elipsoidealne, współrzędne płaskie PL1992, współrzędne płaskie PL2000. [f, l, h, x1992, y1992, x2000, y2000].
 
 - Pierwszy plik Testy_dla_funkcji sprawdzający działanie funkcji wywołanie: python -m pytest Testy_dla_funkcji.py -vvv
+[wersja poprawna] - [wszystkie testy PASSED] - program działa dobrze.
+[werscja niepoprawna] - [conajmniej jeden test FAILURE] - program niedziała dobrze. Sprawdź, czy używasz wersji oprogramowania Windows10/Windows11, bądź Python(3.9.10)/Python(3.10).
+Wyniki: Testy przeszły negatywnie, bądź pozytywnie. [PASSED/FAILURE]
 
 - Pierwszy plik Transformacje_Projekt przyjmujący dane z notatnika, który przeliczy dane do drugiego notatnika i wyświetli tam wyniki wywołanie: python Transformacje_Projekt.py -m GRS80 -t Dane.txt -d dec_degree -xyz Wyniki_przeliczeń_flh_PL1992_PL2000.txt -neu Wyniki_przeliczeń_neu.txt
+[-m] - [GRS80, WGS84, Krasowski] - wybranie modelu elipsoidy.
+[-t] - [Nazwapliku.rozszerzenie] - zaimplementowanie danych do programu.
+[-d] - [dms/dec_degree/radiany] - wybranie jednostek w jakich ma się zapisać [f,l,h] do notatnika.
+[-xyz] - [Nazwapliku.rozszerzenie] - wybranie nazwy i rozrzezenia pliku - tak zostanie zapisany plik wynikowy dla wyników bez neu.
+[-neu] - [Nazwapliku.rozszerzenie] - wybranie nazwy i rozrzezenia pliku - tak zostanie zapisany plik wynikowy tylko wyniki neu.
+Wyniki: Współrzędne geodezyjne elipsoidealne, współrzędne płaskie PL1992, współrzędne płaskie PL2000. [f, l, h, x1992, y1992, x2000, y2000].
