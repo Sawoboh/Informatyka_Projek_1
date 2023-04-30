@@ -23,9 +23,15 @@ Wyniki: Współrzędne topocentryczne [n, e, u].
 - Drugi kalkulator cmd'kowy Kalkulator_flh2xyz_PL1992_PL2000 wywołanie: python Kalkulator_flh2xyz_PL1992_PL2000.py -m GRS80 -xyz Wyniki_przeliczenia2.txt -f 1.12345 -l 1.12345 -ha 1.123 -output dec_degree.
 [-m] - wybranie modelu elipsoidy [GRS80, WGS84, Krasowski].
 [-xyz] - Nazwapliku.rozszerzenie - wybranie nazwy i rozrzezenia pliku - tak zostanie zapisany plik wynikowy.
+[-f, -l, -ha] - stopnie dziesietne - współrzędne geodezyjne elipsoidealne punktu.
+[-output] - [dms/dec_degree/radiany] - wybieramy w jakich jednostkach chcemy mieć wyniki.
+Wyniki: Współrzędne geodezyjne elipsoidealne, współrzędne płaskie PL1992, współrzędne płaskie PL2000. [f, l, h, x1992, y1992, x2000, y2000].
 
 - Trzeci kalkulator cmd'kowy Kalkulator_xyz2flh_PL1992_PL2000 wywołanie: python Kalkulator_xyz2flh_PL1992_PL2000.py -m GRS80 -xyz Wyniki_przeliczenia3.txt -x 1.12345 -y 1.12345 -z 1.12345 -output dec_degree.
 [-m] - wybranie modelu elipsoidy [GRS80, WGS84, Krasowski].
+[-xyz] - Nazwapliku.rozszerzenie - wybranie nazwy i rozrzezenia pliku - tak zostanie zapisany plik wynikowy.
+[-x, -y, -z] - [metry] - współrzędne ortokartezjańskie geocentryczne punktu.
+[-output] - [dms/dec_degree/radiany] - wybieramy w jakich jednostkach chcemy mieć wyniki.
 
 - Czwarty kalkulator cmd'kowy Kalkulator_xyz2neu wywołanie: python Kalkulator_xyz2neu.py -m GRS80 -neu Wyniki_przeliczenia4.txt -xa 1.12345 -ya 1.12345 -za 1.12345 -xb 1.12345 -yb 1.12345 -zb 1.12345.
 [-m] - wybranie modelu elipsoidy [GRS80, WGS84, Krasowski].
