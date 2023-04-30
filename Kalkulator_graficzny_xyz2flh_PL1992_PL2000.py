@@ -132,7 +132,7 @@ root.attributes("-topmost", True)
 
 
 
-Tabelka = tk.Label(root, text="Podaj jedną z elipsoid; GRS80, WGS84, Krasowski:").grid(row=0,column=0)
+Tabelka = tk.Label(root, text="Podaj elipsoidę: [GRS80/WGS84/Krasowski]").grid(row=0,column=0)
 oknoinput1 = tk.Entry(root, width=42)
 oknoinput1.grid(row=1,column=0)
 oknoinput1.insert(0, "GRS80")

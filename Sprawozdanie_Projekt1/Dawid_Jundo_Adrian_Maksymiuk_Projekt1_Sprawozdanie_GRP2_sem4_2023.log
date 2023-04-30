@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2023.2.20)  29 APR 2023 11:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2023.2.20)  30 APR 2023 20:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -945,8 +945,8 @@ toc'.
 GiK-znak.png>] (content/1-Cel_ćwiczenia.tex)
 (content/2-Wykorzystane narzedzia i materiały potrzebne do replikacji ćwiczen
 ia.tex) (content/3-Przebieg ćwiczenia.tex [2] [3]) [4]
-(content/4-Podsumowanie.tex)
-(Dawid_Jundo_Adrian_Maksymiuk_Projekt1_Sprawozdanie_GRP2_sem4_2023.bbl [5]
+(content/4-Podsumowanie.tex) [5]
+(Dawid_Jundo_Adrian_Maksymiuk_Projekt1_Sprawozdanie_GRP2_sem4_2023.bbl
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 50
 .
 
@@ -977,12 +977,12 @@ zdanie_GRP2_sem4_2023.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  17404 strings out of 475385
- 286272 string characters out of 2776907
+ 286437 string characters out of 2776907
  926773 words of memory out of 3000000
  38453 multiletter control sequences out of 15000+600000
  479217 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 77i,11n,80p,1222b,588s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 77i,11n,80p,1222b,452s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/Sawob/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc} <C
 :\Users\Sawob\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.
 pk> <C:\Users\Sawob\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecb
@@ -998,7 +998,7 @@ l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Sawob/App
 Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Sa
 wob/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
 Output written on Dawid_Jundo_Adrian_Maksymiuk_Projekt1_Sprawozdanie_GRP2_sem4_
-2023.pdf (6 pages, 274146 bytes).
+2023.pdf (6 pages, 274240 bytes).
 PDF statistics:
  599 PDF objects out of 1000 (max. 8388607)
  41 named destinations out of 1000 (max. 500000)
