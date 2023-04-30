@@ -1,3 +1,3 @@
-# Informatyka_Projek_1
+# Informatyka_Projekt_1
 hej
 hej
