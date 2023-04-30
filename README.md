@@ -15,15 +15,25 @@ Błędy: Program nie działa dla obliczenia kordynatów [X,Y,Z] = [0,0,0], kalku
 
 
 - Pierwszy kalkulator cmd'kowy Kalkulator_flh2neu wywołanie: python Kalkulator_flh2neu.py -m GRS80 -neu Wyniki_przeliczenia1.txt -fa 1.12345 -la 1.12345 -ha 1.123 -fb 1.12345 -lb 1.12345 -hb 1.123.
+[-m] - wybranie modelu elipsoidy [GRS80, WGS84, Krasowski].
+[-neu] - Nazwapliku.rozszerzenie - wybranie nazwy i rozrzezenia pliku - tak zostanie zapisany plik wynikowy.
+[-fa, -la, -ha, -fb, -lb, -hb] - stopnie dziesietne - współrzędne geodezyjne elipsoidealne punktów [a, b].
+Wyniki: Współrzędne topocentryczne [n, e, u].
 
 - Drugi kalkulator cmd'kowy Kalkulator_flh2xyz_PL1992_PL2000 wywołanie: python Kalkulator_flh2xyz_PL1992_PL2000.py -m GRS80 -xyz Wyniki_przeliczenia2.txt -f 1.12345 -l 1.12345 -ha 1.123 -output dec_degree.
+[-m] - wybranie modelu elipsoidy [GRS80, WGS84, Krasowski].
+[-xyz] - Nazwapliku.rozszerzenie - wybranie nazwy i rozrzezenia pliku - tak zostanie zapisany plik wynikowy.
 
 - Trzeci kalkulator cmd'kowy Kalkulator_xyz2flh_PL1992_PL2000 wywołanie: python Kalkulator_xyz2flh_PL1992_PL2000.py -m GRS80 -xyz Wyniki_przeliczenia3.txt -x 1.12345 -y 1.12345 -z 1.12345 -output dec_degree.
+[-m] - wybranie modelu elipsoidy [GRS80, WGS84, Krasowski].
 
 - Czwarty kalkulator cmd'kowy Kalkulator_xyz2neu wywołanie: python Kalkulator_xyz2neu.py -m GRS80 -neu Wyniki_przeliczenia4.txt -xa 1.12345 -ya 1.12345 -za 1.12345 -xb 1.12345 -yb 1.12345 -zb 1.12345.
+[-m] - wybranie modelu elipsoidy [GRS80, WGS84, Krasowski].
 
 - Pierwszy kalkulator graficzny Kalkulator_graficzny_xyz2flh_PL1992_PL2000 wywołanie: naciśnięcie LPM na plik w folderze.
 
 - Pierwszy plik Testy_dla_funkcji sprawdzający działanie funkcji wywołanie: python -m pytest Testy_dla_funkcji.py -vvv
+[-m] - wybranie modelu elipsoidy [GRS80, WGS84, Krasowski].
 
 - Pierwszy plik Transformacje_Projekt przyjmujący dane z notatnika, który przeliczy dane do drugiego notatnika i wyświetli tam wyniki wywołanie: python Transformacje_Projekt.py -m GRS80 -t Dane.txt -d dec_degree -xyz Wyniki_przeliczeń_flh_PL1992_PL2000.txt -neu Wyniki_przeliczeń_neu.txt
+[-m] - wybranie modelu elipsoidy [GRS80, WGS84, Krasowski].
