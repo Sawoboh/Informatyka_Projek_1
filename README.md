@@ -12,6 +12,7 @@ Program został testowany na Windows11, Windows10, Python 3.9.10 oraz Python 3.1
 Program posiada 4 kalkulatory cmd'kowe, 1 kalkulator graficzny, 1 plik, który sprawdza poprawność funkcji, 1 plik przeliczający dane z notatnika do innego notatnika.
 
 Błędy: Program nie działa dla obliczenia kordynatów [X,Y,Z] = [0,0,0], kalkulator graficzny może źle działać jak użytkownik usunie dane z tablicy danych jeżeli takowej nie ma w folderze programu. Program przy pobieraniu danych i zapisywaniu danych do nowego notatnika tworzy zamiast dwóch cztery pliki tekstowe.
+
 Transformacje dla elipsoidy Krasowskiego dają błędne wyniki dla układu PL2000 i układu PL1992, dlatego nie można ich używać.
 
 
