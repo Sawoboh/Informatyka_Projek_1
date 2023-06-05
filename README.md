@@ -64,6 +64,7 @@ Wyniki: Współrzędne geodezyjne elipsoidealne [Jednostki wybrane przez użytko
 Wyniki: Testy przeszły negatywnie, bądź pozytywnie. [PASSED/FAILURE]
 
 - Pierwszy plik Transformacje_Projekt przyjmujący dane z notatnika (przykładowy notatnik z danymi "wsp_inp.txt" znaduję się w folderze do pobrania na githubie). Pierwsze cztery wiersze pliku txt są wierszami opisowymi - nie powinny zawierać danych. W kolejnych wierszach należy wpisać współrzędne kartezjańskie w odpowiedniej kolejności - [X,Y,Z]. Dane oddzielić przecinkiem przykład: (100.100,200.200,300.300). Program przeliczy dane do drugiego notatnika i wyświetli tam wyniki wywołanie: python Transformacje_Projekt.py -m GRS80 -t Dane.txt -d dec_degree -xyz Wyniki_przeliczeń_flh_PL1992_PL2000.txt -neu Wyniki_przeliczeń_neu.txt
+Początkiem układu neu są kordynaty [X,Y,Z] przekazywane w wierszu znajdującym się poniżej wiersza z kordynatami [X,Y,Z] dla których liczymy wektor (przykład: początek układu punkt a wiersz numer 2, dla wiersza numer 1 punkt b) (wiersz 5 z 4) (wiersz 8 z 7) (wiersz 1 z ostatnim).
 [-m] - [GRS80, WGS84, Krasowski] - wybranie modelu elipsoidy.
 [-t] - [Nazwapliku.rozszerzenie] - zaimplementowanie danych do programu.
 [-d] - [dms/dec_degree/radiany] - wybranie jednostek w jakich ma się zapisać [f,l] do notatnika [h] [metry] będzie zapisane w metrach.
