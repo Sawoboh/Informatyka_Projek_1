@@ -12,7 +12,7 @@ Program został testowany na Windows11, Windows10, Python 3.9.10 oraz Python 3.1
 Program posiada 4 kalkulatory cmd'kowe, 1 kalkulator graficzny, 1 plik, który sprawdza poprawność funkcji, 1 plik przeliczający dane z notatnika do innego notatnika.
 
 Błędy: Program nie działa dla obliczenia kordynatów [X,Y,Z] = [0,0,0], kalkulator graficzny może źle działać jak użytkownik usunie dane z tablicy danych jeżeli takowej nie ma w folderze programu. Program przy pobieraniu danych i zapisywaniu danych do nowego notatnika tworzy zamiast dwóch cztery pliki tekstowe.
-**Transformacje dla elipsoidy Krasowskiego dają błędne wyniki dla układu PL2000 i układu PL1992, dlatego nie można ich używać.
+**Transformacje dla elipsoidy Krasowskiego dają błędne wyniki dla układu PL2000 i układu PL1992, dlatego nie można ich używać.**
 
 - Pierwszy kalkulator cmd'kowy Kalkulator_flh2neu wywołanie: python Kalkulator_flh2neu.py -m GRS80 -neu Wyniki_przeliczenia1.txt -fa 1.12345 -la 1.12345 -ha 1.123 -fb 1.12345 -lb 1.12345 -hb 1.123.
 [-m] - [GRS80, WGS84, Krasowski] - wybranie modelu elipsoidy.
